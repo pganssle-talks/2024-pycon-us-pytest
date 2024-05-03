@@ -447,10 +447,6 @@ div.input_area {
 }
 
 div.output_area {
-  /*
-  margin-left: auto;
-  margin-right: auto;
-  */
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -458,6 +454,24 @@ div.output_area {
 div.output_subarea {
   padding: 0px;
   max-width: 100%;
+}
+
+div.splash {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 90dvh;
+}
+
+div.splash p {
+    font-size: 3em;
+    margin-bottom: 2em;
+}
+
+div.splash :last-child {
+    margin-bottom: unset;
 }
 
 /*#################################
