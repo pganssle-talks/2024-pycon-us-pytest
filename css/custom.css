@@ -474,6 +474,19 @@ div.splash :last-child {
     margin-bottom: unset;
 }
 
+div.side-by-side {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center
+}
+
+div.side-by-side div.left,
+div.side-by-side div.right {
+    max-width: 45dvw;
+
+}
+
 /*#################################
  * Useful classes
  */
