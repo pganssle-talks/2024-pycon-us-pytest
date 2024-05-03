@@ -530,6 +530,37 @@ img.sbitem {
     font-size: 0px;
 }
 
+/*****************************
+ * Custom highlighting
+ */
+
+span.pytest-pass {
+    font-weight: bold;
+    color: #269109;
+}
+
+span.pytest-bad {
+    color: #d10000;
+}
+
+span.pytest-error {
+    color: #d10000;
+    font-weight: bold;
+}
+
+span.pytest-ok {
+    font-weight: bold;
+}
+
+span.pytest-warn {
+    color: #c27e00
+}
+
+span.pytest-warning-count {
+    font-weight: bold;
+    color: #c27e00;
+}
+
 /****************************
  *  HACK
  *
