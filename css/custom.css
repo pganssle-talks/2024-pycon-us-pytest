@@ -561,6 +561,10 @@ span.pytest-error {
     font-weight: bold;
 }
 
+span.pytest-good {
+    color: #269109;
+}
+
 span.pytest-ok {
     font-weight: bold;
 }
