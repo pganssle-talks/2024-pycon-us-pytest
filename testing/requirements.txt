@@ -10,7 +10,7 @@ attrs==23.2.0
     # via
     #   hypothesis
     #   pytest-subtests
-coverage[toml]==7.5.0
+coverage[toml]==7.5.1
     # via pytest-cov
 hypothesis==6.100.2
     # via -r requirements.in
@@ -31,3 +31,5 @@ pytest-subtests==0.12.1
     # via -r requirements.in
 sortedcontainers==2.4.0
     # via hypothesis
+unittest-parametrize==1.4.0
+    # via -r requirements.in
