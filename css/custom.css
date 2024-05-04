@@ -515,6 +515,12 @@ img.sbitem {
     width: 1.1em;
 }
 
+span.footnote,
+p.footnote {
+    font-size: 0.7em;
+    font-style: italic;
+}
+
 
 /*################################
  * Fragments
