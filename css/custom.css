@@ -521,6 +521,11 @@ p.footnote {
     font-style: italic;
 }
 
+/* Separate two unrelated blocks of code so the backgrounds don't merge */
+div.code-separator {
+    margin-bottom: 0.5em;
+}
+
 
 /*################################
  * Fragments
