@@ -316,6 +316,7 @@ body {
   box-shadow: none;
 }
 
+img.splash,
 img#splash {
     border: 2px solid;
     border-color: #444;
