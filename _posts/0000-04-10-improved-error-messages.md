@@ -9,7 +9,13 @@ class Tests(unittest.TestCase):
             self.assertEqual(ts2, dt_rt.timestamp())
 ```
 
-<br/>
+<div class="code-separator"></div>
+
+<div class="side-by-side">
+
+<div class="left">
+
+### `unittest`
 
 ```txt
 $ python -m unittest test_error_message.py 
@@ -28,23 +34,30 @@ Ran 1 test in 0.003s
 FAILED (failures=1)
 ```
 
-<br/>
+</div>
+<div class="right fragment fade-in nospace-fragment">
 
-<pre class="code-wrapper fragment fade-in">
+### `pyttest`
+
+<pre class="code-wrapper">
 <tt class="hljs"><span class="pytest-bad">________________________________ test_timestamp ________________________________</span>
 
-    def test_timestamp():
-        for dt_1, dt_2 in get_datetimes():
-            ts2 = dt_2.timestamp()
-            dt_rt = dt_1 + (dt_2 - dt_1)
-<span class="pytest-error">>           assert ts2 == dt_rt.timestamp()
-E           AssertionError: assert 1715822040.0 == 1715818440.0
-E            +  where 1715818440.0 = <built-in method timestamp of datetime.datetime object at 0x7154d82baf70>()
-E            +    where <built-in method timestamp of datetime.datetime object at 0x7154d82baf70> = datetime.datetime(2024, 5, 15, 20, 14,
-                                             tzinfo=zoneinfo.ZoneInfo(key='America/New_York')
-                                             ).timestamp
+def test_timestamp():
+    for dt_1, dt_2 in get_datetimes():
+        ts2 = dt_2.timestamp()
+        dt_rt = dt_1 + (dt_2 - dt_1)
+<span class="pytest-error">&amp;gt;       assert ts2 == dt_rt.timestamp()
+E  AssertionError: assert 1715822040.0 == 1715818440.0
+E   +  where 1715818440.0 = &amp;lt;built-in method timestamp of datetime.datetime ...&amp;gt;()
+E   +    where &amp;lt;built-in method timestamp of datetime.datetime ...&amp;gt; =
+            datetime.datetime(2024, 5, 15, 20, 14,
+                    tzinfo=zoneinfo.ZoneInfo(key='America/New_York')
+            ).timestamp
 
 test_error_message.py</span>:33: AssertionError
 </tt>
 </pre>
+
+</div>
+</div>
 
