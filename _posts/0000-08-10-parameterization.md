@@ -70,8 +70,10 @@ OK
 
 # `unittest_parametrize`
 
-<div class="side-by-side">
-<div class="left">
+
+<table class="alignment-table">
+<tr>
+<td>
 
 ```python
     @parametrize("x,expected", [
@@ -97,20 +99,9 @@ OK
 ```
 <!-- .element class="fragment disappearing-fragment fade-in" data-fragment-index="0" -->
 
-<br/>
+</td>
 
-```txt
-test_square_0 (parameterize.Tests.test_square_0) ... ok
-test_square_1 (parameterize.Tests.test_square_1) ... ok
-test_square_negative (parameterize.Tests.test_square_negative) ... ok
-test_square_zero (parameterize.Tests.test_square_zero) ... ok
-
-----------------------------------------------------------------------
-Ran 4 tests in 0.000s
-```
-
-</div>
-<div class="right">
+<td>
 
 ```python
 @pytest.mark.parametrize("x,expected", [
@@ -136,7 +127,26 @@ def test_square(x, expected):
 ```
 <!-- .element class="fragment disappearing-fragment fade-in" data-fragment-index="0" -->
 
-<br/>
+</td>
+</tr>
+
+<tr><td colspan="2"><div class="code-separator"></div></td></tr>
+
+<tr>
+<td>
+
+```txt
+test_square_0 (parameterize.Tests.test_square_0) ... ok
+test_square_1 (parameterize.Tests.test_square_1) ... ok
+test_square_negative (parameterize.Tests.test_square_negative) ... ok
+test_square_zero (parameterize.Tests.test_square_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+```
+
+</td>
+<td>
 
 <pre class="code-wrapper"><tt class="hljs">$ pytest -v
 <span class="pytest-ok">============================= test session starts ==============================</span>
@@ -150,12 +160,10 @@ def test_square(x, expected):
 <span class="pytest-pass">============================== </span><span class="pytest-good">4 passed</span><span class="pytest-pass"> in 0.14s ===============================</span>
 </tt></pre>
 
+</td>
+</tr>
+</table>
 
-
-</div>
-</div>
-
-<br/>
 
 --
 

@@ -527,6 +527,16 @@ div.code-separator {
     margin-bottom: 0.5em;
 }
 
+/* Tables used for alignment */
+
+table.alignment-table td,
+table.alignment-table tr {
+    border-bottom: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+}
+
 
 /*################################
  * Fragments
