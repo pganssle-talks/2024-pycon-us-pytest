@@ -97,10 +97,31 @@ def test_bad_assert():
         "My very long error message doesn't fit on one line, gotta break it up"
     )
 ```
-<br/>
 
+<div class="code-separator"></div>
 
-<pre class="code-wrapper fragment fade-in">
+```python
+def test_bad_assert():
+    a = 1
+    assert a == 2, \
+        "My very long error message doesn't fit on one line, gotta break it up"
+
+```
+<!-- .element class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0" -->
+
+```python
+def test_bad_assert():
+    a = 1
+    assert tuple(
+        a ==2,
+        "My very long error message doesn't fit on one line, gotta break it up"
+    )
+```
+<!-- .element class="fragment nospace-fragment fade-in" data-fragment-index="0" -->
+
+<div class="code-separator"></div>
+
+<pre class="code-wrapper fragment fade-in" data-fragment-index="1">
 <tt class="hljs">$ pytest test_bad_assert.py 
 <span class="pytest-ok">============================= test session starts ==============================</span>
 test_bad_assert.py <span class="pytest-pass">.</span>                                                     <span class="pytest-warn">[100%]</span>
