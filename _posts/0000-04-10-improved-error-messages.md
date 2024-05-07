@@ -35,28 +35,59 @@ FAILED (failures=1)
 ```
 
 </div>
-<div class="right fragment fade-in nospace-fragment">
+<div class="right fragment fade-in nospace-fragment" data-fragment-index="0">
 
-### `pyttest`
+### `pytest`
 
-<pre class="code-wrapper">
-<tt class="hljs"><span class="pytest-bad">________________________________ test_timestamp ________________________________</span>
+<pre class="code-wrapper fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="1"><tt class="hljs"><span class="pytest-ok">============================= test session starts ==============================</span>
+<span class="pytest-ok">collected 1 item                                                               </span>
 
-def test_timestamp():
-    for dt_1, dt_2 in get_datetimes():
-        ts2 = dt_2.timestamp()
-        dt_rt = dt_1 + (dt_2 - dt_1)
-<span class="pytest-error">&amp;gt;       assert ts2 == dt_rt.timestamp()
-E  AssertionError: assert 1715822040.0 == 1715818440.0
-E   +  where 1715818440.0 = &amp;lt;built-in method timestamp of datetime.datetime ...&amp;gt;()
-E   +    where &amp;lt;built-in method timestamp of datetime.datetime ...&amp;gt; =
-            datetime.datetime(2024, 5, 15, 20, 14,
-                    tzinfo=zoneinfo.ZoneInfo(key='America/New_York')
-            ).timestamp
+test_error_message.py <span class="pytest-bad">F                                                  [100%]</span>
 
-test_error_message.py</span>:33: AssertionError
-</tt>
-</pre>
+=================================== FAILURES ===================================
+<span class="pytest-error">________________________________ test_timestamp ________________________________</span>
+
+    def test_timestamp():
+        for dt_1, dt_2 in get_datetimes():
+            ts2 = dt_2.timestamp()
+            dt_rt = dt_1 + (dt_2 - dt_1)
+>           assert ts2 == dt_rt.timestamp()
+<span class="pytest-error">E           AssertionError: assert 1715822040.0 == 1715818440.0</span>
+<span class="pytest-error">E            +  where 1715818440.0 = &amp;lt;built-in method timestamp of datetime object ...&amp;gt;()</span>
+<span class="pytest-error">E            +    where &amp;lt;built-in method timestamp of datetime object...&amp;gt; =
+                datetime(2024, 5, 15, 20, 14,
+                         tzinfo=ZoneInfo(key='America/New_York')).timestamp</span>
+
+<span class="pytest-error">test_error_message.py</span>:33: AssertionError
+<span class="pytest-ok">=========================== short test summary info ============================</span>
+<span class="pytest-bad">FAILED</span> test_error_message.py::<span class="pytest-ok">test_timestamp</span> - AssertionError: assert 1715822040.0 == 1715818440.0
+<span class="pytest-bad">============================== </span><span class="pytest-error">1 failed</span><span class="pytest-bad"> in 0.12s ===============================</span>
+</tt></pre>
+
+<pre class="code-wrapper fragment nospace-fragment fade-in" data-fragment-index="1"><tt class="hljs"><span class="pytest-ok">============================= test session starts ==============================</span>
+<span class="pytest-ok">collected 1 item                                                               </span>
+
+test_error_message.py <span class="pytest-bad">F                                                  [100%]</span>
+
+=================================== FAILURES ===================================
+<span class="pytest-error">________________________________ test_timestamp ________________________________</span>
+
+    <font color="#729FCF">def</font> <font color="#4BE234">test_timestamp</font>():
+        <font color="#729FCF">for</font> dt_1, dt_2 <font color="#AD7FA8">in</font> get_datetimes():
+            ts2 = dt_2.timestamp()
+            dt_rt = dt_1 + (dt_2 - dt_1)
+>           <font color="#729FCF">assert</font> ts2 == dt_rt.timestamp()
+<span class="pytest-error">E           AssertionError: assert 1715822040.0 == 1715818440.0</span>
+<span class="pytest-error">E            +  where 1715818440.0 = &amp;lt;built-in method timestamp of datetime object...&amp;gt;()</span>
+<span class="pytest-error">E            +    where &amp;lt;built-in method timestamp of datetime object...&amp;gt; =
+                datetime(2024, 5, 15, 20, 14,
+                         tzinfo=ZoneInfo(key='America/New_York')).timestamp</span>
+
+<span class="pytest-error">test_error_message.py</span>:33: AssertionError
+<span class="pytest-ok">=========================== short test summary info ============================</span>
+<span class="pytest-bad">FAILED</span> test_error_message.py::<span class="pytest-ok">test_timestamp</span> - AssertionError: assert 1715822040.0 == 1715818440.0
+<span class="pytest-bad">============================== </span><span class="pytest-error">1 failed</span><span class="pytest-bad"> in 0.20s ===============================</span>
+</tt></pre>
 
 </div>
 </div>
