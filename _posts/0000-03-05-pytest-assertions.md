@@ -175,11 +175,3 @@ E       assert 0.30000000000000004 == 0.3
 test_floats.py</span>:5: AssertionError
 </tt>
 </pre>
-
-
-
-
-
-
-
-
