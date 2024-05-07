@@ -8,7 +8,7 @@ def test_bad_assert(self):
     assert a == 2, "Custom error message"
 ```
 
-<br/>
+<div class="code-separator"></div>
 
 ```txt
 $ python -m unittest
@@ -32,7 +32,7 @@ def test_bad_assert(self):
     self.assertEqual(a, 2, "Custom error message")
 ```
 
-<br/>
+<div class="code-separator"></div>
 
 ```txt
 $ python -m unittest
@@ -60,7 +60,7 @@ def test_bad_assert():
     assert a == 2, "Custom error message"
 ```
 
-<div style="margin-top: 0.5em; margin-bottom: 0.5em">
+<div class="code-separator"></div>
 
 <pre class="code-wrapper">
 <tt class="hljs">$ pytest
@@ -162,7 +162,7 @@ def test_float_good():
     assert a == pytest.approx(0.3)
 ```
 
-<br/>
+<div class="code-separator"></div>
 
 <pre class="code-wrapper">
 <tt class="hljs"><span class="pytest-bad">________________________________ test_float_bad ________________________________</span>
