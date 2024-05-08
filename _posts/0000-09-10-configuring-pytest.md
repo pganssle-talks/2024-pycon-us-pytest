@@ -11,6 +11,8 @@
 
 --
 
+<!-- .slide: data-visibility="hidden" -->
+
 # Command line flags: Test selection
 
 `-k <expr>`: Specify which tests will run
@@ -44,6 +46,8 @@ tests/test_rrule.py::RRuleSetTest::testSetCachePre <span class="pytest-good">PAS
 <span class="pytest-good">====================== </span><span class="pytest-pass">3 passed</span>, <span class="pytest-warn">2093 deselected</span><span class="pytest-good"> in 0.77s ======================</span></tt></pre>
 
 --
+
+<!-- .slide: data-visibility: hidden -->
 
 # Command line flags: Test selection
 
@@ -97,6 +101,8 @@ tests/test_utils.py <span class="pytest-good">.......                           
 
 --
 
+<!-- .slide: data-visibility="hidden" -->
+
 # Command line flags: Display
 
 <pre class="code-wrapper"><tt class="hljs">$ pip install pygments
@@ -127,6 +133,8 @@ test_bad_assert.py <span class="pytest-bad">F</span>
 --
 
 # Command line flags: Display
+
+<!-- .slide: data-visibility: hidden -->
 
 - `-l` / `--showlocals`: Show local variables in tracebacks
 

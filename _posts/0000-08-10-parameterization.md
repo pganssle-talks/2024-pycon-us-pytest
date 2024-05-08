@@ -68,6 +68,8 @@ OK
 
 --
 
+<!-- .slide: data-visibility="hidden" -->
+
 # `unittest_parametrize`
 
 
