@@ -86,7 +86,7 @@ test_error_message.py <span class="pytest-bad">F                                
 <span class="pytest-error">E           AssertionError: 1715822040.0 != 1715818440.0</span>
 
 dt_1       = datetime.datetime(1970, 1, 1, 0, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York'))
-dt_2       = datetime.datetime(2024, 5, 16, 1, 14, tzinfo=zoneinfo.ZoneInfo(key='UTC'))
+dt_2       = datetime.datetime(2024, 5, 16, 1, 14, tzinfo=datetime.timezone.utc)
 dt_rt      = datetime.datetime(2024, 5, 15, 20, 14, tzinfo=zoneinfo.ZoneInfo(key='America/New_York'))
 self       = &amp;lt;test_error_message.Tests testMethod=test_timestamp&amp;gt;
 ts2        = 1715822040.0

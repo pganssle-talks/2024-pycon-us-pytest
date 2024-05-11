@@ -1,11 +1,11 @@
 # Major differences from `unittest`: `assert` statements
 
-<div style="margin-bottom: 1em">
+<div>
 
 ```python
 def test_bad_assert(self):
     a = 1
-    assert a == 2, "Custom error message"
+    self.assertEqual(a, 2, "Custom error message")
 ```
 
 <div class="code-separator"></div>
@@ -17,19 +17,21 @@ F
 FAIL: test_bad_assert (test_bad_assert.Tests.test_bad_assert)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File ".../test_bad_assert.py", line 7, in test_bad_assert
-    assert a == 2
-AssertionError: Custom error message
+  File ".../test_bad_assert.py", line 10, in test_bad_assert
+    self.assertEqual(a, 2, "Custom error message")
+AssertionError: 1 != 2 : Custom error message
+
 ----------------------------------------------------------------------
 ```
+
 </div>
 
-<div class="fragment fade-in">
+<div style="margin-bottom: 1em">
 
 ```python
 def test_bad_assert(self):
     a = 1
-    self.assertEqual(a, 2, "Custom error message")
+    assert a == 2, "Custom error message"
 ```
 
 <div class="code-separator"></div>
