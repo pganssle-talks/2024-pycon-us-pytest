@@ -43,20 +43,18 @@ F
 FAIL: test_bad_assert (test_bad_assert.Tests.test_bad_assert)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File ".../test_bad_assert.py", line 10, in test_bad_assert
-    self.assertEqual(a, 2, "Custom error message")
-AssertionError: 1 != 2 : Custom error message
-
+  File ".../test_bad_assert.py", line 7, in test_bad_assert
+    assert a == 2
+AssertionError: Custom error message
 ----------------------------------------------------------------------
 ```
-
 </div>
 
 Notes:
 
 So now that we've gotten that out of the way, let's take a look at some of the specific ways that pytest is magical. The first major difference you'll notice from `unittest` is that `pytest` uses the `assert` statement instead of these `assert` methods on the `TestCase` object. One reason that `unittest` and its derivatives use assert methods like `assertEqual` is that the `assert` statement just raises an assertion error on failure, and doesn't really give you any information about what caused the error.
 
-With `assertEquals`, you are passing it both operands and telling it what notion of equality to use, and so the method is able to craft you a nice error message like "`a` doesn't equal `2`". If you were using bog standard `assert` statements, your testing framework would basically just be passed "a statement was true" or "a statement was false", plus any manually-written custom message you would want — meaning you'd basically need to manually and repetitively craft a bunch of error messages for every test.
+With `assertEqual`, you are passing it both operands and telling it what notion of equality to use, and so the method is able to craft you a nice error message like "`a` doesn't equal `2`". If you were using bog standard `assert` statements, your testing framework would basically just be passed "a statement was true" or "a statement was false", plus any manually-written custom message you would want — meaning you'd basically need to manually and repetitively craft a bunch of error messages for every test.
 
 --
 

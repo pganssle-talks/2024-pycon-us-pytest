@@ -45,6 +45,10 @@ self = &amp;lt;test_special_methods.Tests testMethod=test_special_asserts&amp;gt
 </div>
 </div>
 
+Notes:
+
+In fact, you can get *some* of this advantage from `pytest` even without migrating your tests away from `unittest` style. You see, `pytest` is both a test runner and a testing framework, and the test runner is perfectly compatible with `unittest`. So you can basically get this nicely-formatted error message for free by switching to `pytest` as your test runner. That said, when you are using `unittest` test cases, you don't get the full benefit of the byte code rewriting, so you don't get that nice thing where `pytest` can tell you that when it says `3 != 4`, it means `len(a) != 4`.
+
 --
 
 <pre class="code-wrapper disappearing-fragment nospace-fragment fragment fade-out" data-fragment-index="0"><tt class="hljs">$ pytest test_error_message.py
@@ -96,6 +100,10 @@ ts2        = 1715822040.0
 <span class="pytest-bad">FAILED</span> test_error_message.py::<span class="pytest-ok">Tests::test_timestamp</span> - AssertionError: 1715822040.0 != 1715818440.0
 <span class="pytest-bad">============================== </span><span class="pytest-error">1 failed</span><span class="pytest-bad"> in 0.92s ===============================</span>
 </tt></pre>
+
+Notes:
+
+However, you actually can get *something* like that with the `pytest` test runner. Going back to our `datetime` example, you can see that `pytest` doesn't expand the operands like it does when you're using a `unittest` TestCase, but there's something else you can do. If you pass `-l` or `--showlocals`, `pytest` will capture all the local variables that are in scope in the test, and include them in the error message. It's a bit more verbose, but it gives a lot more information, and might even be something you want to use even if you are using `pytest` as your test framework as well.
 
 --
 
