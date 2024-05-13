@@ -615,3 +615,10 @@ code.lang-C {
 .emoji {
     font-family: Noto Color Emoji !important;
 }
+
+/** Speaker notes */
+
+div.speaker-controls-notes div.value {
+    line-height: 1.1 !important;
+    font-size: 0.9em !important;
+}
