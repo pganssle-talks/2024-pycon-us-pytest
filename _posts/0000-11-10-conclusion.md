@@ -20,5 +20,5 @@ Why choose `pytest` over `unittest`?
 - `unittest` is in the standard library, but `pytest` is the standard way to do testing in Python
 - `pytest` is very compatible with `unittest`, so incremental migrations are easy
 - `pytest` is extremely feature-rich, and under active development
-- Fixture UI and scoping is weird, but fixtures are great
+- Fixtures are incredibly powerful (... if a little weird)
 
