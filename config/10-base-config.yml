@@ -3,6 +3,8 @@ exclude:
   - 'docs'
   - 'jekyll-revealjs'
   - 'config'
+  - 'scripts'
+  - 'testing'
 destination: 'docs'
 markdown: redcarpet
 highlighter: rouge
