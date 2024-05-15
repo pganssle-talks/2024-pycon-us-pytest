@@ -659,10 +659,27 @@ span.pytest-warning-count {
     display: inline-block;
 }
 
+.reveal pre code,
+.reveal pre tt {
+    font-size: 1.25em;
+}
+
 code.hljs, tt.hljs {
     display: inline-block;
     min-width: 60%;
     background: #fff;
+}
+
+div.big-code pre code,
+div.big-code pre tt {
+    font-size: 1.5em;
+    line-height: 1.3;
+}
+
+div.medium-code pre code,
+div.medium-code pre tt {
+    font-size: 1.3em;
+    line-height: 1.2;
 }
 
 /****************************
