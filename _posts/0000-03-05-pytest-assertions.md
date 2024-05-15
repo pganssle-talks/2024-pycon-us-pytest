@@ -63,7 +63,7 @@ With `assertEqual`, you are passing it both operands and telling it what notion 
 
 # Major differences from `unittest`: `assert` statements
 
-<div class="centered-container">
+<div class="centered-container medium-code">
 
 <div class="left-container">
 
@@ -110,7 +110,7 @@ Another reason that `unittest` avoids the `assert` statement is that `python` ig
 
 --
 
-<div class="centered-container">
+<div class="centered-container big-code">
 <div class="left-container">
 
 ```python
@@ -173,7 +173,7 @@ But in reality, what's happened is that the first block is equivalent to *this* 
 
 # Advantage: No need for custom `assert` methods
 
-<div class="centered-container">
+<div class="centered-container big-code">
 <div class="left-container">
 
 ```python
@@ -216,7 +216,7 @@ It even does this nifty thing where if one of the operands is a function call, i
 
 # Handling floats
 
-<div class="centered-container">
+<div class="centered-container big-code">
 
 <div class="left-container">
 
