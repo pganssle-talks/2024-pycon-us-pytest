@@ -1,4 +1,8 @@
-# Error Messages: `unittest`
+# `pytest` as a test runner
+
+<div class="centered-container">
+
+<div class="left-container">
 
 ```python
 class Tests(unittest.TestCase):
@@ -35,7 +39,7 @@ FAILED (failures=1)
 ```
 
 </div>
-<div class="right fragment fade-in nospace-fragment" data-fragment-index="0">
+<div class="right fragment fade-in" data-fragment-index="0">
 
 ### `pytest`
 
@@ -91,9 +95,34 @@ test_error_message.py <span class="pytest-bad">F                                
 
 </div>
 </div>
+</div>
+</div>
 
 Notes:
 
 Another nice advantage of `pytest` is the way it displays errors when a test fails. Take for example this test, which generates a bunch of datetimes and tests to see if they satisfy this property. You'll notice that with `unittest`, the result you get is not exactly useful, since the operands to `assertEqual` are both just large numbers, with no indication of what datetimes were involved. Writing an equivalent test with `pytest` gives this error message, which gives a lot more information about what went wrong.
 
 You may also think I'm putting my thumb on the scales by including all this bolding and red text and such, but that's another difference between `pytest` and `unittest` — `unittest` gives plain text output, whereas `pytest` makes use of color and bolding, and in fact if you have `pygments` installed, you can even get it to show you syntax highligting.
+
+--
+
+# `pytest` as a test runner: flags
+
+<div class="centered-container">
+
+- `-x`: Exit on first failure
+- `--maxfail`: Exit after the first `num` failures or errors
+- `--sw`/`--stepwise`: Exit on test failure, then continue from last failing test
+
+<div></div>
+
+- `--nf` / `--new-first`: Run tests ordered by last modified time of the file
+- `--ff` / `--failed-first`: Start with tests that failed last time
+- `--lf` / `--last-failed`: Only run tests that failed last time
+
+<div></div>
+
+- `--pdb`: Drop into debugger on failure
+
+<div></div>
+</div>

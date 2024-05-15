@@ -47,7 +47,7 @@ tests/test_rrule.py::RRuleSetTest::testSetCachePre <span class="pytest-good">PAS
 
 --
 
-<!-- .slide: data-visibility: hidden -->
+<!-- .slide: data-visibility="hidden" -->
 
 # Command line flags: Test selection
 

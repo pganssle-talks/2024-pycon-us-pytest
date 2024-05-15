@@ -1,5 +1,7 @@
 # `pytest` is compatible with `unittest`
 
+<div class="centered-container">
+
 <div class="side-by-side">
 
 <div class="left">
@@ -44,12 +46,15 @@ self = &amp;lt;test_special_methods.Tests testMethod=test_special_asserts&amp;gt
 
 </div>
 </div>
+</div>
 
 Notes:
 
 In fact, you can get *some* of this advantage from `pytest` even without migrating your tests away from `unittest` style. You see, `pytest` is both a test runner and a testing framework, and the test runner is perfectly compatible with `unittest`. So you can basically get this nicely-formatted error message for free by switching to `pytest` as your test runner. That said, when you are using `unittest` test cases, you don't get the full benefit of the byte code rewriting, so you don't get that nice thing where `pytest` can tell you that when it says `3 != 4`, it means `len(a) != 4`.
 
 --
+
+<div style="position: absolute; top: 10%; left: 0; width: 100%">
 
 <pre class="code-wrapper disappearing-fragment nospace-fragment fragment fade-out" data-fragment-index="0"><tt class="hljs">$ pytest test_error_message.py
 <span class="pytest-ok">============================= test session starts ==============================</span>
@@ -101,18 +106,26 @@ ts2        = 1715822040.0
 <span class="pytest-bad">============================== </span><span class="pytest-error">1 failed</span><span class="pytest-bad"> in 0.92s ===============================</span>
 </tt></pre>
 
+</div>
+
 Notes:
 
 However, you actually can get *something* like that with the `pytest` test runner. Going back to our `datetime` example, you can see that `pytest` doesn't expand the operands like it does when you're using a `unittest` TestCase, but there's something else you can do. If you pass `-l` or `--showlocals`, `pytest` will capture all the local variables that are in scope in the test, and include them in the error message. It's a bit more verbose, but it gives a lot more information, and might even be something you want to use even if you are using `pytest` as your test framework as well.
 
 --
 
+<div class="centered-container">
+
+<figure>
 <img id="splash" class="splash"
      src="images/screenshots/junitxml_output.jpg"
      alt="Screenshot of the pytest documentation showing how to create output files in the JUnitXML format"
      >
 
-<span class="footnote">
+<figcaption class="footnote">
 
 `pytest` has many options related to configuring test output, see [the documentation here](https://docs.pytest.org/en/7.1.x/how-to/output.html)
-</span>
+</figcaption>
+</figure>
+
+</div>
