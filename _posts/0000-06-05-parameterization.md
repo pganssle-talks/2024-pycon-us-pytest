@@ -1,6 +1,6 @@
 # Test paramet<span style="color:#D2D2D2">e</span>rization
 
-<div class="centered-container">
+<div class="centered-container big-code">
 <div class="left-container">
 
 ```python
@@ -42,7 +42,7 @@ def test_fromisoformat(dt_str: str) -> None:
 
 # `unittest_parametrize`
 
-<div class="centered-container">
+<div class="centered-container big-code">
 
 ```python
 import unittest_parametrize
@@ -184,9 +184,9 @@ Ran 4 tests in 0.000s
 
 # Stacking parametrize decorators
 
-<div class="centered-container">
+<div class="centered-container medium-code">
 
-<div class="left-container">
+<div class="left-container" style="width:100%">
 
 ```python
 @pytest.mark.parametrize("x", [4, 5, 6])
@@ -237,7 +237,7 @@ def test_multiply(x, y):
 # Subtests
 
 <div class="centered-container">
-<div class="left-container">
+<div class="left-container" style="width: 100%">
 
 ```python
 def test_fromisoformat(self):
@@ -290,7 +290,7 @@ FAILED (failures=1, errors=1)
 # Subtests
 
 <div class="centered-container" style="justify-content: flex-start">
-<div class="left-container">
+<div class="left-container" style="width: 100%">
 
 ```python
 def test_datetime(self):

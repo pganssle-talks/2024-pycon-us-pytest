@@ -662,6 +662,7 @@ span.pytest-warning-count {
 .reveal pre code,
 .reveal pre tt {
     font-size: 1.25em;
+    line-height: 1.1;
 }
 
 code.hljs, tt.hljs {

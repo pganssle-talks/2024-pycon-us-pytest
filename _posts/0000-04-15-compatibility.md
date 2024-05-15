@@ -2,9 +2,7 @@
 
 <div class="centered-container">
 
-<div class="side-by-side">
-
-<div class="left">
+<div class="left-container">
 
 ```txt
 $ python -m unittest
@@ -23,8 +21,8 @@ Ran 1 test in 0.000s
 FAILED (failures=1)
 ```
 
-</div>
-<div class="right">
+<div class="code-separator"></div>
+
 <pre class="code-wrapper"><tt class="hljs">$ pytest test_special_methods.py
 <span class="pytest-ok">============================= test session starts ==============================</span>
 <span class="pytest-ok">collected 1 item                                                               </span>
@@ -46,7 +44,6 @@ self = &amp;lt;test_special_methods.Tests testMethod=test_special_asserts&amp;gt
 
 </div>
 </div>
-</div>
 
 Notes:
 
@@ -54,7 +51,8 @@ In fact, you can get *some* of this advantage from `pytest` even without migrati
 
 --
 
-<div style="position: absolute; top: 10%; left: 0; width: 100%">
+<!-- <div style="position: absolute; top: 5%; left: 0; width: 100%" class="big-code"> -->
+<div style="width: 100%" class="big-code">
 
 <pre class="code-wrapper disappearing-fragment nospace-fragment fragment fade-out" data-fragment-index="0"><tt class="hljs">$ pytest test_error_message.py
 <span class="pytest-ok">============================= test session starts ==============================</span>
@@ -78,7 +76,7 @@ test_error_message.py <span class="pytest-bad">F                                
 <span class="pytest-bad">============================== </span><span class="pytest-error">1 failed</span><span class="pytest-bad"> in 0.93s ===============================</span>
 </tt></pre>
 
-<pre class="code-wrapper fragment nospace-fragment fade-in" data-fragment-index="0"><tt class="hljs">$ pytest test_error_message.py <b>--showlocals</b>
+<pre class="code-wrapper fragment fade-in" data-fragment-index="0"><tt class="hljs">$ pytest test_error_message.py <b>--showlocals</b>
 <span class="pytest-ok">============================= test session starts ==============================</span>
 <span class="pytest-ok">collected 1 item                                                               </span>
 

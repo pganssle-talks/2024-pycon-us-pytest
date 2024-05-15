@@ -1,8 +1,6 @@
 # `pytest` as a test runner
 
-<div class="centered-container">
-
-<div class="left-container">
+<div class="left-container big-code">
 
 ```python
 class Tests(unittest.TestCase):
@@ -12,12 +10,23 @@ class Tests(unittest.TestCase):
             dt_rt = dt_1 + (dt_2 - dt_1)
             self.assertEqual(ts2, dt_rt.timestamp())
 ```
+<!-- .element class="disappearing-fragment fragment nospace-fragment fade-out" data-fragment-index="0" -->
 
-<div class="code-separator"></div>
+```python
+class Tests(unittest.TestCase):
+    def test_timestamp(self):
+        for dt_1, dt_2 in get_datetimes():
+            ts2 = dt_2.timestamp()
+            dt_rt = dt_1 + (dt_2 - dt_1)
+            assert ts2 == dt_rt.timestamp()
+```
+<!-- .element class="fragment nospace-fragment fade-in" data-fragment-index="0" -->
 
-<div class="side-by-side">
+</div>
 
-<div class="left">
+<div class="centered-container">
+
+<div class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0">
 
 ### `unittest`
 
@@ -39,7 +48,8 @@ FAILED (failures=1)
 ```
 
 </div>
-<div class="right fragment fade-in" data-fragment-index="0">
+
+<div class="fragment fade-in nospace-fragment" data-fragment-index="0">
 
 ### `pytest`
 
@@ -95,8 +105,7 @@ test_error_message.py <span class="pytest-bad">F                                
 
 </div>
 </div>
-</div>
-</div>
+
 
 Notes:
 
