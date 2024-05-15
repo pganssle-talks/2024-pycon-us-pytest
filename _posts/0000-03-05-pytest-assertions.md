@@ -1,6 +1,7 @@
 # Major differences from `unittest`: `assert` statements
 
-<div>
+<div class="centered-container">
+<div class="left-container">
 
 ```python
 def test_bad_assert(self):
@@ -26,7 +27,7 @@ AssertionError: 1 != 2 : Custom error message
 
 </div>
 
-<div style="margin-bottom: 1em">
+<div class="left-container">
 
 ```python
 def test_bad_assert(self):
@@ -49,6 +50,8 @@ AssertionError: Custom error message
 ----------------------------------------------------------------------
 ```
 </div>
+</div>
+</div>
 
 Notes:
 
@@ -59,6 +62,10 @@ With `assertEqual`, you are passing it both operands and telling it what notion 
 --
 
 # Major differences from `unittest`: `assert` statements
+
+<div class="centered-container">
+
+<div class="left-container">
 
 ```python
 def test_bad_assert():
@@ -93,6 +100,8 @@ FAILED test_bad_assert.py::test_bad_assert - AssertionError: Custom error messag
 - Achieved by re-writing the bytecode before execution
 - Works with assertions disabled (`python -O`)
 
+</div>
+
 Notes:
 
 This is the first way that `pytest` is magical — because with `pytest`, even though you are using `assert` statements, it still gives you a nice clean error message, including the operands and the operation that happened. The way it does this is that before it executes any test code, it actually compiles your tests into bytecode, then re-writes the bytecode to extract the relevant information and change what error messages are being raised.
@@ -100,6 +109,9 @@ This is the first way that `pytest` is magical — because with `pytest`, even t
 Another reason that `unittest` avoids the `assert` statement is that `python` ignores all `assert` statements when it's run with `-O`, so if these `assert` statements aren't being executed in your test code, it's not possible to test that your code works when run with `-O`! Again, `pytest`'s byte code re-writing saves us here, because `pytest` specifically rewrites the byte code for `assert` statements *in test code* to no longer actually use the `assert` statement under the hood, leaving the `assert` statements in your module alone, so you can still run your tests in the optimized configuration.
 
 --
+
+<div class="centered-container">
+<div class="left-container">
 
 ```python
 def test_bad_assert():
@@ -148,6 +160,8 @@ test_bad_assert.py:7
 <span class="pytest-warn">========================= <span class="pytest-pass">1 passed</span>, <span class="pytest-warning-count">1 warning</span> in 1.13s =========================
 </tt>
 </pre>
+</div>
+</div>
 
 Notes:
 
@@ -158,6 +172,9 @@ But in reality, what's happened is that the first block is equivalent to *this* 
 ---
 
 # Advantage: No need for custom `assert` methods
+
+<div class="centered-container">
+<div class="left-container">
 
 ```python
 def test_special_asserts():
@@ -184,6 +201,9 @@ test_special_assert.py</span>:5: AssertionError
 </tt>
 </pre>
 
+</div>
+</div>
+
 Notes:
 
 Now we've seen some problems that can be used by using bare `assert` methods, but we haven't seen the advantages that would lead `pytest` to go out of their way to implement byte code rewriting just to use this style. So why do this at all?
@@ -195,6 +215,10 @@ It even does this nifty thing where if one of the operands is a function call, i
 --
 
 # Handling floats
+
+<div class="centered-container">
+
+<div class="left-container">
 
 ```python
 import pytest
@@ -222,6 +246,9 @@ E       assert 0.30000000000000004 == 0.3
 test_floats.py</span>:5: AssertionError
 </tt>
 </pre>
+
+</div>
+</div>
 
 Notes:
 

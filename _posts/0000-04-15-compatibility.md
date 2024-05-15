@@ -54,7 +54,7 @@ In fact, you can get *some* of this advantage from `pytest` even without migrati
 
 --
 
-<div class="centered-container">
+<div style="position: absolute; top: 10%; left: 0; width: 100%">
 
 <pre class="code-wrapper disappearing-fragment nospace-fragment fragment fade-out" data-fragment-index="0"><tt class="hljs">$ pytest test_error_message.py
 <span class="pytest-ok">============================= test session starts ==============================</span>

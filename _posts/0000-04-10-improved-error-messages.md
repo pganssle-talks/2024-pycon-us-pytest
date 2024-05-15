@@ -1,4 +1,8 @@
-# Error Messages: `unittest`
+# `pytest` as a test runner
+
+<div class="centered-container">
+
+<div class="left-container">
 
 ```python
 class Tests(unittest.TestCase):
@@ -35,7 +39,7 @@ FAILED (failures=1)
 ```
 
 </div>
-<div class="right fragment fade-in nospace-fragment" data-fragment-index="0">
+<div class="right fragment fade-in" data-fragment-index="0">
 
 ### `pytest`
 
@@ -91,6 +95,8 @@ test_error_message.py <span class="pytest-bad">F                                
 
 </div>
 </div>
+</div>
+</div>
 
 Notes:
 
@@ -100,18 +106,23 @@ You may also think I'm putting my thumb on the scales by including all this bold
 
 --
 
-# Command line flags: Debugging
+# `pytest` as a test runner: flags
+
+<div class="centered-container">
 
 - `-x`: Exit on first failure
 - `--maxfail`: Exit after the first `num` failures or errors
 - `--sw`/`--stepwise`: Exit on test failure, then continue from last failing test
 
-<br/><br/>
+<div></div>
 
 - `--nf` / `--new-first`: Run tests ordered by last modified time of the file
 - `--ff` / `--failed-first`: Start with tests that failed last time
 - `--lf` / `--last-failed`: Only run tests that failed last time
 
-<br/><br/>
+<div></div>
 
 - `--pdb`: Drop into debugger on failure
+
+<div></div>
+</div>

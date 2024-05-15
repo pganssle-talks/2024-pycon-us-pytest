@@ -1,5 +1,8 @@
 # Test paramet<span style="color:#D2D2D2">e</span>rization
 
+<div class="centered-container">
+<div class="left-container">
+
 ```python
 @pytest.mark.parametrize("dt_str", [
     "2025-01-01T01+00:00",
@@ -32,9 +35,14 @@ def test_fromisoformat(dt_str: str) -> None:
 </tt>
 </pre>
 
+</div>
+</div>
+
 --
 
 # `unittest_parametrize`
+
+<div class="centered-container">
 
 ```python
 import unittest_parametrize
@@ -52,7 +60,8 @@ class Tests(unittest_parametrize.ParametrizedTestCase):
 
 ```
 
-<br/>
+<div></div>
+
 
 ```txt
 $ python -m unittest -v parameterize
@@ -65,6 +74,10 @@ Ran 3 tests in 0.000s
 
 OK
 ```
+
+<div></div>
+<div></div>
+<div></div>
 
 --
 
@@ -171,6 +184,10 @@ Ran 4 tests in 0.000s
 
 # Stacking parametrize decorators
 
+<div class="centered-container">
+
+<div class="left-container">
+
 ```python
 @pytest.mark.parametrize("x", [4, 5, 6])
 @pytest.mark.parametrize("y", [3, 2, 1])
@@ -179,7 +196,7 @@ def test_multiply(x, y):
     assert z > x and z > y
 ```
 
-<br/>
+<div></div>
 
 <pre class="code-wrapper"><tt class="hljs">$ pytest --tb=short
 <span class="pytest-ok">============================= test session starts ==============================</span>
@@ -212,9 +229,15 @@ def test_multiply(x, y):
      alt="Doge meme featuring a Shiba Inu with text in Comic Sans reading, 'how can this b?', 'so text matrix', 'many wow', 'such cartesian product'"
      style="height: auto; width: 30dvw; position: fixed; top: 3.5em; right: 3dvw; border: 3px solid #000">
 
+</div>
+</div>
+
 --
 
 # Subtests
+
+<div class="centered-container">
+<div class="left-container">
 
 ```python
 def test_fromisoformat(self):
@@ -232,7 +255,7 @@ def test_fromisoformat(self):
             self.assertEqual(datetime.fromisoformat(case), expected_datetime)
 ```
 
-<br/>
+<div></div>
 
 ```txt
 $ python -m unittest -vv test_subtests.py
@@ -258,9 +281,16 @@ Ran 1 test in 0.001s
 FAILED (failures=1, errors=1)
 ```
 
+</div>
+</div>
+
+
 --
 
 # Subtests
+
+<div class="centered-container" style="justify-content: flex-start">
+<div class="left-container">
 
 ```python
 def test_datetime(self):
@@ -286,7 +316,7 @@ def test_datetime(subtests):            # Using the pytest-subtests plugin
 ```
 <!-- .element class="fragment nospace-fragment fade-in" data-fragment-index="0" -->
 
-<br/>
+<div></div>
 
 ```python
 def datetime_test_cases():
@@ -312,4 +342,8 @@ def test_europe_london(subtests, dt, offset):
 ```
 <!-- .element class="fragment fade-in" data-fragment-index="1" -->
 
+</div>
+
 <span class="footnote">For more on subtests, see my blog post [Subtests in Python](https://blog.ganssle.io/articles/2020/04/subtests-in-python.html)</span>
+
+</div>

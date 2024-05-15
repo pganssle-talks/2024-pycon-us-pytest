@@ -86,6 +86,7 @@ body {
 
 .reveal .slides {
   height: 100%;
+  margin-top: 0;
 }
 
 ::selection {
@@ -101,12 +102,16 @@ body {
 
 .reveal .slides>section {
   min-height: 90% !important;
+  top: auto;
 }
 
 .reveal .slides>section>section {
+  display: flex !important;
+  flex-direction: column;
   min-height: 100% !important;
   height: 100dvh;
   width: 100%;
+  padding-bottom: 2em !important;
 }
 
 div.centered-container {
@@ -116,6 +121,25 @@ div.centered-container {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+
+div.left-container {
+    text-align: left;
+}
+
+/*********************************************
+ * Title slide
+ *********************************************/
+
+.main-title {
+  font-size: 3em;
+  color: #000;
+  font-family: "News Cycle", "Cantarell", sans-serif;
+  font-weight: bold;
+}
+
+.main-title-info .author {
+    font-size: 2.5em;
 }
 
 /*********************************************
@@ -242,7 +266,8 @@ div.centered-container {
   display: block;
   position: relative;
   width: 95%;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   text-align: left;
   font-size: 0.55em;
   font-family: monospace;
