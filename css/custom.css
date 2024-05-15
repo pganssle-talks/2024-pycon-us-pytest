@@ -600,6 +600,22 @@ span.pytest-warning-count {
     color: #c27e00;
 }
 
+.reveal pre {
+    display: inline-block;
+    width: auto;
+}
+
+.reveal pre code
+{
+    display: inline-block;
+}
+
+code.hljs, tt.hljs {
+    display: inline-block;
+    min-width: 60%;
+    background: #fff;
+}
+
 /****************************
  *  HACK
  *
