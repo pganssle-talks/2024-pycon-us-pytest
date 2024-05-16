@@ -1,24 +1,43 @@
-<!-- <div class="splash fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0"> -->
+# Recap
 
-<div class ="splash">
+<div class="centered-container">
 
-Why choose `pytest` over `unittest`?
+<div class="left-container" style="width: 100%">
+
+### `pytest` can be adopted incrementally
+
+- Use it just as a test runner
+- Can mix-and match `pytest` and `unittest` style code
+
 </div>
 
-<!--
+<div></div>
 
-<img src="images/attacking_straw_man.png"
-     alt="A knight in armor attacking a scarecrow."
-     class="splash fragment fade-in"
-     data-fragment-index="0"
-     />
+<div class="left-container" style="width: 100%">
 
--->
+### `pytest` is the standard way to do testing
+
+- Broad ecosystem
+- Strong documentation
+- Under active development
+
+</div>
+
+<div></div>
+
+<div class="left-container" style="width: 100%">
+
+### `pytest` is extremely feature rich
+
+- Fixtures
+- Parameterization
+- Much more! (`markers`, custom plugins, etc)
+
+</div>
+</div>
 
 --
 
-- `unittest` is in the standard library, but `pytest` is the standard way to do testing in Python
-- `pytest` is very compatible with `unittest`, so incremental migrations are easy
-- `pytest` is extremely feature-rich, and under active development
-- Fixtures are incredibly powerful (... if a little weird)
-
+<div class="splash">
+Thank you!
+</div>
