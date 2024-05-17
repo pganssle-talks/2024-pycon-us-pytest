@@ -1,4 +1,4 @@
-# `pytest` as a test runner
+# Improved error messages
 
 <div class="left-container big-code">
 
@@ -109,7 +109,9 @@ test_error_message.py <span class="pytest-bad">F                                
 
 Notes:
 
-Another nice advantage of `pytest` is the way it displays errors when a test fails. Take for example this test, which generates a bunch of datetimes and tests to see if they satisfy this property. You'll notice that with `unittest`, the result you get is not exactly useful, since the operands to `assertEqual` are both just large numbers, with no indication of what datetimes were involved. Writing an equivalent test with `pytest` gives this error message, which gives a lot more information about what went wrong.
+Another nice advantage of `pytest` is the way it displays errors when a test fails. For example take this test, which generates a bunch of datetimes and tests to see if they satisfy this property. You'll notice that with `unittest`, the result you get is not exactly useful, since the operands to `assertEqual` are both just large numbers, with no indication of what datetimes were involved.
+
+Writing an equivalent test with `pytest` gives this error message, which gives a lot more information about what went wrong.
 
 You may also think I'm putting my thumb on the scales by including all this bolding and red text and such, but that's another difference between `pytest` and `unittest` — `unittest` gives plain text output, whereas `pytest` makes use of color and bolding, and in fact if you have `pygments` installed, you can even get it to show you syntax highligting.
 
@@ -225,7 +227,7 @@ ts2        = 1715822040.0
 
 Notes:
 
-However, you actually can get *something* like that with the `pytest` test runner. Going back to our `datetime` example, you can see that `pytest` doesn't expand the operands like it does when you're using a `unittest` TestCase, but there's something else you can do. If you pass `-l` or `--showlocals`, `pytest` will capture all the local variables that are in scope in the test, and include them in the error message. It's a bit more verbose, but it gives a lot more information, and might even be something you want to use even if you are using `pytest` as your test framework as well.
+However, you actually can get *something* like that with the `pytest` test runner. Going back to our `datetime` example, you can see that when you are using a `TestCase`, `pytest` doesn't expand the operands like it does when you are using the bare assertion `pytest`-style tests, but if you pass `-l` or `--showlocals`, `pytest` will capture all the local variables that are in scope in the test, and include them in the error message. It's a bit more verbose, but it gives a lot more information, and might even be something you want to use even if you are using `pytest` as your test framework as well.
 
 --
 
