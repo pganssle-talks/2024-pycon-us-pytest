@@ -28,8 +28,6 @@ class Tests(unittest.TestCase):
 
 <div class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0">
 
-### `unittest`
-
 ```txt
 $ python -m unittest test_error_message.py 
 F
@@ -50,8 +48,6 @@ FAILED (failures=1)
 </div>
 
 <div class="fragment fade-in nospace-fragment" data-fragment-index="0">
-
-### `pytest`
 
 <pre class="code-wrapper fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="1"><tt class="hljs"><span class="pytest-ok">============================= test session starts ==============================</span>
 <span class="pytest-ok">collected 1 item                                                               </span>
