@@ -206,7 +206,7 @@ test_special_assert.py</span>:5: AssertionError
 
 Notes:
 
-Now we've seen some problems that can be used by using bare `assert` methods, but we haven't seen the advantages that would lead `pytest` to go out of their way to implement byte code rewriting just to use this style. So why do this at all?
+Now we've seen some problems that can be caused by using bare `assert` methods, but we haven't seen the advantages that would lead `pytest` to go out of their way to implement byte code rewriting just to use this style. So why do this at all?
 
 Well, one of the big advantages is that you don't need a huge proliferation of custom `assert` methods for every little operation you might want to do. Since `pytest` is able to extract out the relevant operations, you can just use natural comparisons with their normal semantics.
 

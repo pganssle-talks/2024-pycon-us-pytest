@@ -223,7 +223,7 @@ ts2        = 1715822040.0
 
 Notes:
 
-However, you actually can get *something* like that with the `pytest` test runner. Going back to our `datetime` example, you can see that when you are using a `TestCase`, `pytest` doesn't expand the operands like it does when you are using the bare assertion `pytest`-style tests, but if you pass `-l` or `--showlocals`, `pytest` will capture all the local variables that are in scope in the test, and include them in the error message. It's a bit more verbose, but it gives a lot more information, and might even be something you want to use even if you are using `pytest` as your test framework as well.
+However, you actually can get *something* like that with the `pytest` test runner. Going back to our `datetime` example, you can see that when you are using a `TestCase`, `pytest` doesn't expand the operands like it does when you are using the bare assertion `pytest`-style tests, but if you pass `-l` or `--showlocals`, `pytest` will capture all the local variables that are in the scope of the test, and include them in the error message. It's a bit more verbose, but it gives a lot more information, and might even be something you want to use even if you are using `pytest` as your test framework as well.
 
 --
 

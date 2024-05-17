@@ -6,7 +6,7 @@
 
 Notes:
 
-A common objection to `pytest` is that it is way too magical — it selects tests based on their name, it rewrites byte code, it does a bunch of path manipulation and all kinds of magical stuff. The worry people have is that because of the magic, it can be hard to reason abut `pytests`'s behavior.
+A common objection to `pytest` is that it is way too magical — it selects tests based on their name, it rewrites byte code, it does a bunch of path manipulation and all kinds of magical stuff. The worry people have is that because of the magic, it can be hard to reason abut `pytest`'s behavior.
 
 And I will tell you something as a big proponent of `pytest`: `pytest` is way too magical, it's true. But the other thing I'll say is that in practice, **ADVANCE SLIDE** this doesn't really matter all that much.
 
