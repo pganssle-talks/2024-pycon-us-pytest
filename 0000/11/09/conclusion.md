@@ -41,7 +41,7 @@
 # More from me
 
 <div class="centered-container">
-<div class="left-container">
+<div class="left-container" style="font-size: 1.5em">
 <p><b>Website:</b> <a href="https://ganssle.io">https://ganssle.io</a></p>
 <p><b>Blog:</b> <a href="https://blog.ganssle.io">https://blog.ganssle.io</a></p>
 <p><b>Mastodon:</b> <a href="https://qoto.org/@pganssle">@pganssle@qoto.org</a></p>
