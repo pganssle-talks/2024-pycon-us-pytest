@@ -1,30 +1,31 @@
-<h1 style="font-size: 3em"><tt>pytest</tt> for <tt>unittest</tt>ers</h1>
-<br/>
-<br/>
-<br/>
-<span style="font-size: 2.5em">
-Paul Ganssle
-</span>
-<br/>
-<br/>
-<img src="images/pganssle-logos.svg" height="40px" alt="@pganssle">
-<br/>
-<br/>
-<span style="font-size: 1em;"><em>This talk on Github:
-<a href="https://github.com/pganssle-talks/2024-pycon-us-pytest">pganssle-talks/2024-pycon-us-pytest</a></em>
-</span>
-<br/>
-<a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">
-    <img src="external-images/logos/cc-zero.svg" height="45px">
-</a>
-<br/>
+<div class="centered-container" style="height: 100dvh">
+<p class="main-title"><tt>pytest for unittesters</tt></p>
+
+<div class="main-title-info">
+<div class="author">
+    Paul Ganssle
+</div>
+
+<div class="logo">
+    <img src="images/pganssle-logos.svg" height="40px" alt="@pganssle">
+</div>
+
+<div class="link">
+    <span style="font-size: 1em;"><em>This talk on Github:
+        <a href="https://github.com/pganssle-talks/2024-pycon-us-pytest">pganssle-talks/2024-pycon-us-pytest</a></em>
+    </span>
+</div>
+
+<div class="license">
+    <a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">
+        <img src="external-images/logos/cc-zero.svg" height="45px">
+    </a>
+</div>
+</div>
+</div>
 
 Notes:
 
-Hi everyone, my name is Paul Ganssle, I'm a software engineer at Google and a maintainer of a few open source packages, notably I maintain `dateutil` and I'm a CPython core dev.
+Hi everyone, my name is Paul Ganssle, I'm a software engineer at Google and a maintainer of a few open source packages, notably I am a CPython core dev, mostly working on `datetime` and `zoneinfo`.
 
-Today I'm going to be talking about the testing frameworks `pytest` and `unittest`. I prefer to use `pytest`, but I have a lot of experience with *both* frameworks, both at work and in the open source world. In CPython, we more or less have to use `unittest`, because it's *really* hard to bring in third party dependencies into CPython, even just for testing.
-
-At Google, we have historically used our own derivative of `unittest` called `absltest`, and when I first conceived of this talk, it was intended to make the case for why we might want to move *away* from `absltest` and at the very least provide active support for using `pytest` within Google. And in fact I'm happy to report that in the year or so since I made my plea for `pytest`, there actually *has* been some movement in that direction (though we've encountered a... notable setback recently...).
-
-My goal for this talk is to try to showcase why I — and a great many people — always choose `pytest` over `unittest` whenever possible, and maybe even to convince some people at large organizations with massive code-bases that migrating is more feasible than you'd think.
+Today I'm going to be talking about `pytest`, but specifically aimed at audiences who have historically used `unittest` or one of its derivatives. At Google, we tend to use our own derivative of `unittest` called `absltest`, but as a big fan of `pytest`, I wanted to put together a coherent case for why `pytest` is likely a better choice in today's world, and why and how you might want to migrate your `unittest`-based workflow to `pytest`. This talk barely scratches the surface, but I hope that it might highlight some of the advantages of `pytest` for those of you considering a migration, or for those deciding between `unittest` and `pytest` in the first place.

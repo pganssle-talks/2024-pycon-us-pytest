@@ -44,36 +44,37 @@
 				
 				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
 					<textarea data-template>
-<h1 style="font-size: 3em"><tt>pytest</tt> for <tt>unittest</tt>ers</h1>
-<br/>
-<br/>
-<br/>
-<span style="font-size: 2.5em">
-Paul Ganssle
-</span>
-<br/>
-<br/>
-<img src="images/pganssle-logos.svg" height="40px" alt="@pganssle">
-<br/>
-<br/>
-<span style="font-size: 1em;"><em>This talk on Github:
-<a href="https://github.com/pganssle-talks/2024-pycon-us-pytest">pganssle-talks/2024-pycon-us-pytest</a></em>
-</span>
-<br/>
-<a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">
-    <img src="external-images/logos/cc-zero.svg" height="45px">
-</a>
-<br/>
+<div class="centered-container" style="height: 100dvh">
+<p class="main-title"><tt>pytest for unittesters</tt></p>
+
+<div class="main-title-info">
+<div class="author">
+    Paul Ganssle
+</div>
+
+<div class="logo">
+    <img src="images/pganssle-logos.svg" height="40px" alt="@pganssle">
+</div>
+
+<div class="link">
+    <span style="font-size: 1em;"><em>This talk on Github:
+        <a href="https://github.com/pganssle-talks/2024-pycon-us-pytest">pganssle-talks/2024-pycon-us-pytest</a></em>
+    </span>
+</div>
+
+<div class="license">
+    <a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">
+        <img src="external-images/logos/cc-zero.svg" height="45px">
+    </a>
+</div>
+</div>
+</div>
 
 Notes:
 
-Hi everyone, my name is Paul Ganssle, I'm a software engineer at Google and a maintainer of a few open source packages, notably I maintain `dateutil` and I'm a CPython core dev.
+Hi everyone, my name is Paul Ganssle, I'm a software engineer at Google and a maintainer of a few open source packages, notably I am a CPython core dev, mostly working on `datetime` and `zoneinfo`.
 
-Today I'm going to be talking about the testing frameworks `pytest` and `unittest`. I prefer to use `pytest`, but I have a lot of experience with *both* frameworks, both at work and in the open source world. In CPython, we more or less have to use `unittest`, because it's *really* hard to bring in third party dependencies into CPython, even just for testing.
-
-At Google, we have historically used our own derivative of `unittest` called `absltest`, and when I first conceived of this talk, it was intended to make the case for why we might want to move *away* from `absltest` and at the very least provide active support for using `pytest` within Google. And in fact I'm happy to report that in the year or so since I made my plea for `pytest`, there actually *has* been some movement in that direction (though we've encountered a... notable setback recently...).
-
-My goal for this talk is to try to showcase why I — and a great many people — always choose `pytest` over `unittest` whenever possible, and maybe even to convince some people at large organizations with massive code-bases that migrating is more feasible than you'd think.
+Today I'm going to be talking about `pytest`, but specifically aimed at audiences who have historically used `unittest` or one of its derivatives. At Google, we tend to use our own derivative of `unittest` called `absltest`, but as a big fan of `pytest`, I wanted to put together a coherent case for why `pytest` is likely a better choice in today's world, and why and how you might want to migrate your `unittest`-based workflow to `pytest`. This talk barely scratches the surface, but I hope that it might highlight some of the advantages of `pytest` for those of you considering a migration, or for those deciding between `unittest` and `pytest` in the first place.
 
 					</textarea>
 				</section>
@@ -81,16 +82,18 @@ My goal for this talk is to try to showcase why I — and a great many people �
 				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
 					<textarea data-template>
 <div class="splash">
-<p><tt>pytest</tt> is way too magical</p>
+<p>✨ <tt>pytest</tt> is way too  magical ✨</p>
 <p class="fragment fade-in">... but in practice this doesn't matter</p>
 </div>
 
 
 Notes:
 
-For those of you in the audience who have considered `pytest`, one common objection is that it is too magical — and we'll get to all the magical stuff it does in a bit. The worry is that it can be hard to reason about `pytest`'s behavior because it's messing around with system code, inspecting the *names* of methods, rewriting byte code.
+A common objection to `pytest` is that it is way too magical — it selects tests based on their name, it rewrites byte code, it does a bunch of path manipulation and all kinds of magical stuff. The worry people have is that because of the magic, it can be hard to reason abut `pytest`'s behavior.
 
-And I will tell you something as a big proponent of `pytest`: `pytest` is way too magical for my tastes, it's true. But the other thing I'll say is that in practice, this doesn't really matter all that much. If you had shown me `pytest` when it was a young upstart and no one was using it, I would have thought that you were introducing a bunch of implicit behavior, it would lead to terrible technical debt and unmaintainable code. I would have thought that it would never work, but in practice, it's totally working. Pretty much everyone in the open source world uses it, and it's become the industry standard for testing in Python, and none of these dangers have come to pass. It pretty much works!
+And I will tell you something as a big proponent of `pytest`: `pytest` is way too magical, it's true. But the other thing I'll say is that in practice, **ADVANCE SLIDE** this doesn't really matter all that much.
+
+If you had shown me `pytest` when it was a young upstart and no one was using it, I would have thought that you were introducing a bunch of implicit behavior, it would lead to terrible technical debt and unmaintainable code, but `pytest` is not a young upstart — it is in fact the standard way to do testing in Python these days, and for good reason, and for the most part I've never seen this magical behavior cause problems. Things mostly just work!
 
 					</textarea>
 				</section>
@@ -99,7 +102,8 @@ And I will tell you something as a big proponent of `pytest`: `pytest` is way to
 					<textarea data-template>
 # Major differences from `unittest`: `assert` statements
 
-<div>
+<div class="centered-container">
+<div class="left-container">
 
 ```python
 def test_bad_assert(self):
@@ -125,7 +129,7 @@ AssertionError: 1 != 2 : Custom error message
 
 </div>
 
-<div style="margin-bottom: 1em">
+<div class="left-container">
 
 ```python
 def test_bad_assert(self):
@@ -148,6 +152,8 @@ AssertionError: Custom error message
 ----------------------------------------------------------------------
 ```
 </div>
+</div>
+</div>
 
 Notes:
 
@@ -158,6 +164,10 @@ With `assertEqual`, you are passing it both operands and telling it what notion 
 --
 
 # Major differences from `unittest`: `assert` statements
+
+<div class="centered-container medium-code">
+
+<div class="left-container">
 
 ```python
 def test_bad_assert():
@@ -192,6 +202,8 @@ FAILED test_bad_assert.py::test_bad_assert - AssertionError: Custom error messag
 - Achieved by re-writing the bytecode before execution
 - Works with assertions disabled (`python -O`)
 
+</div>
+
 Notes:
 
 This is the first way that `pytest` is magical — because with `pytest`, even though you are using `assert` statements, it still gives you a nice clean error message, including the operands and the operation that happened. The way it does this is that before it executes any test code, it actually compiles your tests into bytecode, then re-writes the bytecode to extract the relevant information and change what error messages are being raised.
@@ -199,6 +211,9 @@ This is the first way that `pytest` is magical — because with `pytest`, even t
 Another reason that `unittest` avoids the `assert` statement is that `python` ignores all `assert` statements when it's run with `-O`, so if these `assert` statements aren't being executed in your test code, it's not possible to test that your code works when run with `-O`! Again, `pytest`'s byte code re-writing saves us here, because `pytest` specifically rewrites the byte code for `assert` statements *in test code* to no longer actually use the `assert` statement under the hood, leaving the `assert` statements in your module alone, so you can still run your tests in the optimized configuration.
 
 --
+
+<div class="centered-container big-code">
+<div class="left-container">
 
 ```python
 def test_bad_assert():
@@ -247,6 +262,8 @@ test_bad_assert.py:7
 <span class="pytest-warn">========================= <span class="pytest-pass">1 passed</span>, <span class="pytest-warning-count">1 warning</span> in 1.13s =========================
 </tt>
 </pre>
+</div>
+</div>
 
 Notes:
 
@@ -257,6 +274,9 @@ But in reality, what's happened is that the first block is equivalent to *this* 
 ---
 
 # Advantage: No need for custom `assert` methods
+
+<div class="centered-container big-code">
+<div class="left-container">
 
 ```python
 def test_special_asserts():
@@ -283,9 +303,12 @@ test_special_assert.py</span>:5: AssertionError
 </tt>
 </pre>
 
+</div>
+</div>
+
 Notes:
 
-Now we've seen some problems that can be used by using bare `assert` methods, but we haven't seen the advantages that would lead `pytest` to go out of their way to implement byte code rewriting just to use this style. So why do this at all?
+Now we've seen some problems that can be caused by using bare `assert` methods, but we haven't seen the advantages that would lead `pytest` to go out of their way to implement byte code rewriting just to use this style. So why do this at all?
 
 Well, one of the big advantages is that you don't need a huge proliferation of custom `assert` methods for every little operation you might want to do. Since `pytest` is able to extract out the relevant operations, you can just use natural comparisons with their normal semantics.
 
@@ -294,6 +317,10 @@ It even does this nifty thing where if one of the operands is a function call, i
 --
 
 # Handling floats
+
+<div class="centered-container big-code">
+
+<div class="left-container">
 
 ```python
 import pytest
@@ -322,6 +349,9 @@ test_floats.py</span>:5: AssertionError
 </tt>
 </pre>
 
+</div>
+</div>
+
 Notes:
 
 That's all well and good, you may say, but what about floats? Don't we *need* custom assertion functions for when we want fuzzy matches? Or are we supposed to write our own custom equality function just for fuzzy float comparisons?
@@ -333,7 +363,9 @@ For that case, you can use `pytest`'s built-in wrapper function, `approx`, which
 				
 				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
 					<textarea data-template>
-# Error Messages: `unittest`
+# Improved error messages
+
+<div class="left-container big-code">
 
 ```python
 class Tests(unittest.TestCase):
@@ -343,14 +375,23 @@ class Tests(unittest.TestCase):
             dt_rt = dt_1 + (dt_2 - dt_1)
             self.assertEqual(ts2, dt_rt.timestamp())
 ```
+<!-- .element class="disappearing-fragment fragment nospace-fragment fade-out" data-fragment-index="0" -->
 
-<div class="code-separator"></div>
+```python
+class Tests(unittest.TestCase):
+    def test_timestamp(self):
+        for dt_1, dt_2 in get_datetimes():
+            ts2 = dt_2.timestamp()
+            dt_rt = dt_1 + (dt_2 - dt_1)
+            assert ts2 == dt_rt.timestamp()
+```
+<!-- .element class="fragment nospace-fragment fade-in" data-fragment-index="0" -->
 
-<div class="side-by-side">
+</div>
 
-<div class="left">
+<div class="centered-container">
 
-### `unittest`
+<div class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0">
 
 ```txt
 $ python -m unittest test_error_message.py 
@@ -370,9 +411,8 @@ FAILED (failures=1)
 ```
 
 </div>
-<div class="right fragment fade-in nospace-fragment" data-fragment-index="0">
 
-### `pytest`
+<div class="fragment fade-in nospace-fragment" data-fragment-index="0">
 
 <pre class="code-wrapper fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="1"><tt class="hljs"><span class="pytest-ok">============================= test session starts ==============================</span>
 <span class="pytest-ok">collected 1 item                                                               </span>
@@ -427,22 +467,22 @@ test_error_message.py <span class="pytest-bad">F                                
 </div>
 </div>
 
+
 Notes:
 
-Another nice advantage of `pytest` is the way it displays errors when a test fails. Take for example this test, which generates a bunch of datetimes and tests to see if they satisfy this property. You'll notice that with `unittest`, the result you get is not exactly useful, since the operands to `assertEqual` are both just large numbers, with no indication of what datetimes were involved. Writing an equivalent test with `pytest` gives this error message, which gives a lot more information about what went wrong.
+Another nice advantage of `pytest` is the way it displays errors when a test fails. For example take this test, which generates a bunch of datetimes and tests to see if they satisfy this property. You'll notice that with `unittest`, the result you get is not exactly useful, since the operands to `assertEqual` are both just large numbers, with no indication of what datetimes were involved.
+
+Writing an equivalent test with `pytest` gives this error message, which gives a lot more information about what went wrong.
 
 You may also think I'm putting my thumb on the scales by including all this bolding and red text and such, but that's another difference between `pytest` and `unittest` — `unittest` gives plain text output, whereas `pytest` makes use of color and bolding, and in fact if you have `pygments` installed, you can even get it to show you syntax highligting.
 
-					</textarea>
-				</section>
-				
-				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
-					<textarea data-template>
+--
+
 # `pytest` is compatible with `unittest`
 
-<div class="side-by-side">
+<div class="centered-container">
 
-<div class="left">
+<div class="left-container">
 
 ```txt
 $ python -m unittest
@@ -461,8 +501,8 @@ Ran 1 test in 0.000s
 FAILED (failures=1)
 ```
 
-</div>
-<div class="right">
+<div class="code-separator"></div>
+
 <pre class="code-wrapper"><tt class="hljs">$ pytest test_special_methods.py
 <span class="pytest-ok">============================= test session starts ==============================</span>
 <span class="pytest-ok">collected 1 item                                                               </span>
@@ -491,6 +531,9 @@ In fact, you can get *some* of this advantage from `pytest` even without migrati
 
 --
 
+<!-- <div style="position: absolute; top: 5%; left: 0; width: 100%" class="big-code"> -->
+<div style="width: 100%" class="big-code">
+
 <pre class="code-wrapper disappearing-fragment nospace-fragment fragment fade-out" data-fragment-index="0"><tt class="hljs">$ pytest test_error_message.py
 <span class="pytest-ok">============================= test session starts ==============================</span>
 <span class="pytest-ok">collected 1 item                                                               </span>
@@ -513,7 +556,7 @@ test_error_message.py <span class="pytest-bad">F                                
 <span class="pytest-bad">============================== </span><span class="pytest-error">1 failed</span><span class="pytest-bad"> in 0.93s ===============================</span>
 </tt></pre>
 
-<pre class="code-wrapper fragment nospace-fragment fade-in" data-fragment-index="0"><tt class="hljs">$ pytest test_error_message.py <b>--showlocals</b>
+<pre class="code-wrapper fragment fade-in" data-fragment-index="0"><tt class="hljs">$ pytest test_error_message.py <b>--showlocals</b>
 <span class="pytest-ok">============================= test session starts ==============================</span>
 <span class="pytest-ok">collected 1 item                                                               </span>
 
@@ -541,21 +584,52 @@ ts2        = 1715822040.0
 <span class="pytest-bad">============================== </span><span class="pytest-error">1 failed</span><span class="pytest-bad"> in 0.92s ===============================</span>
 </tt></pre>
 
+</div>
+
 Notes:
 
-However, you actually can get *something* like that with the `pytest` test runner. Going back to our `datetime` example, you can see that `pytest` doesn't expand the operands like it does when you're using a `unittest` TestCase, but there's something else you can do. If you pass `-l` or `--showlocals`, `pytest` will capture all the local variables that are in scope in the test, and include them in the error message. It's a bit more verbose, but it gives a lot more information, and might even be something you want to use even if you are using `pytest` as your test framework as well.
+However, you actually can get *something* like that with the `pytest` test runner. Going back to our `datetime` example, you can see that when you are using a `TestCase`, `pytest` doesn't expand the operands like it does when you are using the bare assertion `pytest`-style tests, but if you pass `-l` or `--showlocals`, `pytest` will capture all the local variables that are in the scope of the test, and include them in the error message. It's a bit more verbose, but it gives a lot more information, and might even be something you want to use even if you are using `pytest` as your test framework as well.
 
 --
 
+# `pytest` as a test runner: flags
+
+<div class="centered-container">
+
+- `-x`: Exit on first failure
+- `--maxfail`: Exit after the first `num` failures or errors
+- `--sw`/`--stepwise`: Exit on test failure, then continue from last failing test
+
+<div></div>
+
+- `--nf` / `--new-first`: Run tests ordered by last modified time of the file
+- `--ff` / `--failed-first`: Start with tests that failed last time
+- `--lf` / `--last-failed`: Only run tests that failed last time
+
+<div></div>
+
+- `--pdb`: Drop into debugger on failure
+
+<div></div>
+</div>
+
+--
+
+<div class="centered-container">
+
+<figure>
 <img id="splash" class="splash"
      src="images/screenshots/junitxml_output.jpg"
      alt="Screenshot of the pytest documentation showing how to create output files in the JUnitXML format"
      >
 
-<span class="footnote">
+<figcaption class="footnote">
 
 `pytest` has many options related to configuring test output, see [the documentation here](https://docs.pytest.org/en/7.1.x/how-to/output.html)
-</span>
+</figcaption>
+</figure>
+
+</div>
 
 					</textarea>
 				</section>
@@ -564,17 +638,10 @@ However, you actually can get *something* like that with the `pytest` test runne
 					<textarea data-template>
 # Classes are optional in `pytest`
 
-<div class="side-by-side" style="margin-bottom:1em">
-<div class="left" style="width: 40dvw; font-size: 1.25em">
+<div class="centered-container big-code">
 
-```python
-def test_basic():
-    a = 4
-    b = 4
-    assert a == b
-```
-</div>
-<div class="right" style="width: 40dvw; font-size: 1.25em">
+<div class="side-by-side" style="margin-bottom:1em">
+<div class="left" style="width: 40dvw; font-size: 1.25em; text-align: left">
 
 ```python
 class ExampleTest(unittest.TestCase):
@@ -584,6 +651,17 @@ class ExampleTest(unittest.TestCase):
 
         self.assertEqual(a, b)
 ```
+
+</div>
+<div class="right" style="width: 40dvw; font-size: 1.25em">
+
+```python
+def test_basic():
+    a = 4
+    b = 4
+    assert a == b
+```
+
 </div>
 </div>
 
@@ -594,13 +672,17 @@ class ExampleTest(unittest.TestCase):
 - Most setup/teardown use cases are handled with fixtures
 - `pytest` also supports using classes
 
+<div></div>
+
+</div>
+
 --
 
 # Using classes in `pytest`
 
 <div class="side-by-side">
 
-<div class="left" style="width:55dvw; max-width:55dvw; font-size:1.5em">
+<div class="left" style="width:55dvw; max-width:55dvw; font-size:1.3em">
 
 ```python
 class TestClass:
@@ -609,16 +691,20 @@ class TestClass:
         """Run when class is initialized."""
         cls.EXPENSIVE_GLOBAL = generate_expensive_global()
 
+
     @classmethod
     def teardown_class(cls):
         """Run when class is destroyed."""
         cls.EXPENSIVE_GLOBAL.free_resources()
 
+
     def setup_method(self, method):
         """Run before every test method execution."""
 
+
     def teardown_method(self, method):
         """Run after every test method execution."""
+
 
     def test_method(self):
         """This is a test that is actually run."""
@@ -639,14 +725,33 @@ class TestClass:
 				
 				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
 					<textarea data-template>
-<img id="splash" class="splash"
+<div class="centered-container">
+
+<figure class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0">
+
+<img src="external-images/memes/pepe_silvia_upscaled.png"
+     style="height: 50dvh; width: auto; max-height: 60dvh;"
+     alt="Pepe Silvia meme: Charlie from It's Always Sunny in Philadelphia stands in front of a corkboard covered in deranged writing; he has a crazed look in his eye">
+<figcaption>
+
+A `unittest` user explains the inheritance hierarchy of their abstract test classes
+</figcaption>
+</figure>
+
+<img id="splash" class="splash fragment nospace-fragment fade-in"
+     data-fragment-index="0"
+     style="width: 75dvw; height: auto"
      src="images/memes/morpheus_modular_tests.jpg"
      alt="Morpheus from the Matrix image macro with the text 'What if I told you you could have modular, composable test code without mix-ins'"
      >
 
+</div>
+
 --
 
 # Fixtures
+
+<div class="centered-container big-code">
 
 <div class="fragment fade-out disappearing-fragment nospace-fragment" data-fragment-index="0">
 
@@ -669,22 +774,28 @@ def fixture_name():
 def config_dict():
     yield {"option": "value"}
 
+
 def test_config(config_dict):                      # config_dict() executed
     my_module.run_function(config=config_dict)
+
 
 def test_modifying_config(config_dict):            # A new dict is created here
     config_dict["option"] = "value2"
     my_module.run_function(config=config_dict)
+
 
 def test_hard_drive_deleted():                     # config_dict() not executed
     my_module.delete_user_hard_drive()
     assert not any(pathlib.Path("/").iterdir())
 ```
 </div>
+</div>
 
 --
 
 # Fixtures are modular
+
+<div class="centered-container big-code">
 
 ```python
 @pytest.fixture
@@ -693,17 +804,23 @@ def random_user():
     yield username
     my_module.delete_user(username)
 
+
 def test_func(random_user):
     my_module.some_func(random_user)
+
 
 def test_func_with_config(random_user, config_dict):
     my_module.some_func(random_user, config=config_dict)
 
 ```
 
+</div>
+
 --
 
 # Fixtures are composable
+
+<div class="centered-container big-code">
 
 ```python
 @pytest.fixture
@@ -711,6 +828,7 @@ def random_user():
     username = my_module.create_random_user()
     yield username
     my_module.delete_user(username)
+
 
 @pytest.fixture
 def random_user_with_home(random_user, tmp_path):
@@ -718,10 +836,13 @@ def random_user_with_home(random_user, tmp_path):
     random_user.set_home_dir(home_dir)
     yield random_user
 
+
 def test_get_home_dir(random_user_with_home):
     user_homedir = random_user_with_home.get_homedir()
     assert user_homedir.name == random_user_with_home.username
 ```
+
+</div>
 
 --
 
@@ -742,6 +863,7 @@ def registered_endpoint_base(query_session: Session) -> str:
     user_id = str(uuid.uuid4())
     query_session.post(f"{BASE}/register_uuid", data={"user_id": user_id})
     yield f"{BASE}/user_id/"
+
 
 @pytest.fixture(scope="function")
 def payload_options():
@@ -821,7 +943,12 @@ Notes:
 
 --
 
-# Fixture UI: Parameterizing fixtures
+# Passing Parameters to Fixtures: <span class="fragment nospace-fragment fade-out disappearing-fragment" data-fragment-index="0">Indirect</span><span class="fragment nospace-fragment fade-in" data-fragment-index="0">Direct</span> Parameterization
+
+<div class="centered-container">
+<div class="left-container medium-code">
+
+<div class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0">
 
 ```python
 @pytest.fixture
@@ -840,14 +967,18 @@ def test_users_with_accents_indirect(random_user_indirect):
 
 ```
 
-<br/><br/>
+</div>
+
+<div class="fragment nospace-fragment fade-in" data-fragment-index="0">
+
+<div class="fragment nospace-fragment fade-in" data-fragment-index="1">
 
 ```python
 @pytest.fixture
 def username_base() -> str | None:
     return None
 ```
-<!-- .element class="fragment nospace-fragment fade-in" -->
+</div>
 
 ```python
 @pytest.fixture
@@ -863,239 +994,14 @@ def random_user(username_base: str | None) -> str:
 def test_users_with_accents(random_user):
     random_user.do_something()
 ```
+</div>
+</div>
 
 <span class="footnote">
 
 More on [direct parameterization](https://docs.pytest.org/en/7.2.x/how-to/fixtures.html#override-a-fixture-with-direct-test-parametrization) and [indirect parameterization](https://docs.pytest.org/en/latest/example/parametrize.html#indirect-parametrization) in the `pytest` documentation
 </span>
-
---
-
-# Fixture UI Issues
-
-<pre class="code-wrapper"><tt class="hljs">$ pytest test_confusing_error_message.py 
-<span class="pytest-ok">============================= test session starts ==============================</span>
-<span class="pytest-ok">collected 1 item                                                               </span>
-
-test_confusing_error_message.py <span class="pytest-bad">E                                        [100%]</span>
-
-==================================== ERRORS ====================================
-<font color="#EF2929"><span class="pytest-ok">______________________ ERROR at setup of test_refactored _______________________</span></font>
-file test_confusing_error_message.py, line 1
-  def test_refactored(self):
-<span class="pytest-bad">E       fixture 'self' not found</span>
-<span class="pytest-bad">>       available fixtures: cache, capfd, capfdbinary,
-                          caplog, capsys, capsysbinary, cov, doctest_namespace,
-                          monkeypatch, no_cover, pytestconfig, record_property,
-                          record_testsuite_property, record_xml_attribute,
-                          recwarn, subtests, tmp_path, tmp_path_factory,
-                          tmpdir, tmpdir_factory</span>
-<span class="pytest-bad">>       use 'pytest --fixtures [testpath]' for help on them.</span>
-
-test_confusing_error_message.py:1
-<span class="pytest-ok">=========================== short test summary info ============================</span>
-<span class="pytest-bad">ERROR</span> test_confusing_error_message.py::<span class="pytest-ok">test_refactored</span>
-<span class="pytest-bad">=============================== </span><font color="#EF2929"><span class="pytest-ok">1 error</span></font><span class="pytest-bad"> in 0.39s ===============================</span>
-</tt></pre>
-
---
-
-# Fixture discovery
-
-```python
-def test_something(tmp_path: pathlib.Path) -> None:
-    tmp_path.write_text(my_module.generate_text())
-    assert "SOME_STRING" in my_module.read_path(tmp_path)
-```
-
-<style>
-
-div.pytest-figure-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-div.pytest-figure-container figure {
-    max-width: 40dvw;
-}
-
-div.pytest-figure-container img {
-    max-width: 45dvw;
-    max-height: 45dvh;
-    height: auto;
-}
-
-div.pytest-figure-container figure figcaption {
-    font-size: 0.7em;
-    font-style: italic;
-}
-</style>
-
-<div class="pytest-figure-container">
-<figure class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0">
-<img src="external-images/fixture_availability.svg"
-     alt="A diagram showing the scope that fixtures are available in">
-<figcaption>
-
-Scope of fixture availability for fixtures defined in `conftest.py` files at different levels in the directory structure.
-</figcaption>
-</figure>
-
-<figure class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0">
-<img src="external-images/fixture_availability_plugins.svg"
-     alt="A diagram showing the scope that fixtures are available in with plugins"
-     style="height: auto; max-width: 40dvw">
-<figcaption>
-
-Fixture availability with plugins installed
-</figcaption>
-</figure>
-
-<img src="external-images/memes/pepe_silvia_upscaled.png"
-     style="height: 50dvh; width: auto; max-height: 60dvh;"
-     alt="Pepe Silvia meme: Charlie from It's Always Sunny in Philadelphia stands in front of a corkboard covered in deranged writing; he has a crazed look in his eye"
-     class="fragment fade-in nospace-fragment" data-fragment-index="0"
-     >
-
 </div>
-
---
-
-# Proposed improvements
-
-```python
-# Explicitly import your fixtures
-from pytest.fixtures import tmp_path
-from my_plugin import setup_globals
-
-# Explicitly apply fixtures you want
-@pytest.apply(tmp_path)
-def test_something(tmp_path: pathlib.Path) -> None:
-    tmp_path.write_text(my_module.generate_text())
-    assert "SOME_STRING" in my_module.read_path(tmp_path)
-
-# Example of a "function-scoped" autouse fixture
-@pytest.use(setup_globals)
-def test_something_with_globals():
-    assert my_module.INITIALIZED_GLOBAL == "initialized"
-```
-
-<div class="code-separator"></div>
-
-```python
-@pytest.fixture
-def random_user(username_base: str | None = None) -> str:
-    user = User(username_base)
-    user.create_user()
-    yield user.username
-    user.delete_user()
-
-# Bind as part of the wrapper decorator
-@pytest.apply(random_user, username_base="josé")
-def test_usernames_with_accents(random_user: str) -> None:
-    assert get_user(random_user).base == "josé"
-
-# Allow parameterization directly in apply
-@pytest.apply(random_user, [
-    {"username_base": "josé"},
-    ("minecraft_dude",),
-    pytest.param(username_base="calvin"),
-])
-def test_username_base(random_user: str) -> None:
-    assert get_user(random_user).base is not None
-```
-<!-- .element class="fragment fade-in" -->
-
-<span class="footnote">
-
-A reform along these lines was also [proposed by Abid Mujtaba](https://github.com/abid-mujtaba/testing-fixtures) in 2023
-</span>
-
-					</textarea>
-				</section>
-				
-				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
-					<textarea data-template>
-# Markers
-
-*Adds some metadata to a test*
-
-```python
-def test_light_thing():
-    assert 1 + 1 == 2
-
-@pytest.mark.heavy
-def test_heavy_thing():
-    assert calculate_digit_of_e(1_000_000_000) == 4
-```
-
-<br/>
-<pre class="code-wrapper">
-<tt class="hljs">$ pytest -k 'not heavy' pytest/test_marks.py
-<span class="pytest-ok">============================= test session starts ==============================</span>
-collected 2 items / 1 deselected / 1 selected
-..//test_marks.py <span class="pytest-pass">.                                                   [100%]</span>
-<span class="pytest-good">======================= <span class="pytest-pass">1 passed</span>, <span class="pytest-warn">1 deselected</span> in 0.15s ========================</span>
-</tt>
-</pre>
-
-<br/>
-
-```python
-def test_build_exists():
-    assert BUILD_PATH.exists()
-
-@pytest.mark.depends(on="test_build_exists")
-def test_build_succeeded():
-    with open(BUILD_PATH / "pkg_info", "rt") as f:
-        assert next(f) == "PKG_INFO_HEADER"
-        ...
-```
-<!-- .element class="fragment fade-in" data-fragment-index="0" -->
-
-<p class="footnote fragment fade-in" data-fragment-index="0">
-Example using <a href="https://pypi.org/project/pytest-depends/"><tt>pytest-depends</tt></a>.
-</p>
-
---
-
-# `xfail` and `skip`
-
-```python
-@pytest.mark.skipif(sys.version_info < (3, 10), reason="Uses feature from 3.10")
-def test_skipped():
-    assert (14).bit_count() == 3
-
-
-@pytest.mark.xfail(reason="Always fails")
-def test_xfail():
-    assert False
-
-@pytest.mark.xfail(reason="Always fails")
-def test_xpass():
-    assert True
-```
-
-<br/>
-
-<pre class="code-wrapper">
-<tt class="hljs">$ pytest pytest/test_xfail.py
-<span class="pytest-ok">============================= test session starts ==============================</span>
-
-pytest/test_xfail.py <span class="pytest-warn">sx</span><span class="pytest-bad">F                                                 [100%]</span>
-
-=================================== FAILURES ===================================
-<span class="pytest-error">__________________________________ test_xpass __________________________________</span>
-[XPASS(strict)] Always fails
-<span class="pytest-ok">=========================== short test summary info ============================</span>
-<span class="pytest-bad">FAILED</span> .../test_xfail.py::<b>test_xpass</b>
-<span class="pytest-bad">=================== <span class="pytest-error">1 failed</span>, <span class="pytest-warn">1 skipped, 1 xfailed</span> in 0.04s ====================</span>
-</tt>
-</pre>
-
-<span class="footnote">For more details see <a href="https://ganssle.io/talks/#xfail-and-skip"><i>my talk at PyTexas 2022</i></a> or <a href="https://blog.ganssle.io/articles/2021/11/pytest-xfail.html">one of my blog posts on the subject</a> (https://blog.ganssle.io) </span>
 
 					</textarea>
 				</section>
@@ -1103,6 +1009,9 @@ pytest/test_xfail.py <span class="pytest-warn">sx</span><span class="pytest-bad"
 				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
 					<textarea data-template>
 # Test paramet<span style="color:#D2D2D2">e</span>rization
+
+<div class="centered-container big-code">
+<div class="left-container">
 
 ```python
 @pytest.mark.parametrize("dt_str", [
@@ -1136,9 +1045,14 @@ def test_fromisoformat(dt_str: str) -> None:
 </tt>
 </pre>
 
+</div>
+</div>
+
 --
 
 # `unittest_parametrize`
+
+<div class="centered-container big-code">
 
 ```python
 import unittest_parametrize
@@ -1156,7 +1070,8 @@ class Tests(unittest_parametrize.ParametrizedTestCase):
 
 ```
 
-<br/>
+<div></div>
+
 
 ```txt
 $ python -m unittest -v parameterize
@@ -1169,6 +1084,10 @@ Ran 3 tests in 0.000s
 
 OK
 ```
+
+<div></div>
+<div></div>
+<div></div>
 
 --
 
@@ -1275,6 +1194,10 @@ Ran 4 tests in 0.000s
 
 # Stacking parametrize decorators
 
+<div class="centered-container medium-code">
+
+<div class="left-container" style="width:100%">
+
 ```python
 @pytest.mark.parametrize("x", [4, 5, 6])
 @pytest.mark.parametrize("y", [3, 2, 1])
@@ -1283,7 +1206,7 @@ def test_multiply(x, y):
     assert z > x and z > y
 ```
 
-<br/>
+<div></div>
 
 <pre class="code-wrapper"><tt class="hljs">$ pytest --tb=short
 <span class="pytest-ok">============================= test session starts ==============================</span>
@@ -1316,9 +1239,17 @@ def test_multiply(x, y):
      alt="Doge meme featuring a Shiba Inu with text in Comic Sans reading, 'how can this b?', 'so text matrix', 'many wow', 'such cartesian product'"
      style="height: auto; width: 30dvw; position: fixed; top: 3.5em; right: 3dvw; border: 3px solid #000">
 
+</div>
+</div>
+
 --
 
+<!-- .slide: data-visibility="hidden" -->
+
 # Subtests
+
+<div class="centered-container">
+<div class="left-container" style="width: 100%">
 
 ```python
 def test_fromisoformat(self):
@@ -1336,7 +1267,7 @@ def test_fromisoformat(self):
             self.assertEqual(datetime.fromisoformat(case), expected_datetime)
 ```
 
-<br/>
+<div></div>
 
 ```txt
 $ python -m unittest -vv test_subtests.py
@@ -1362,9 +1293,18 @@ Ran 1 test in 0.001s
 FAILED (failures=1, errors=1)
 ```
 
+</div>
+</div>
+
+
 --
 
+<!-- .slide: data-visibility="hidden" -->
+
 # Subtests
+
+<div class="centered-container" style="justify-content: flex-start">
+<div class="left-container" style="width: 100%">
 
 ```python
 def test_datetime(self):
@@ -1390,7 +1330,7 @@ def test_datetime(subtests):            # Using the pytest-subtests plugin
 ```
 <!-- .element class="fragment nospace-fragment fade-in" data-fragment-index="0" -->
 
-<br/>
+<div></div>
 
 ```python
 def datetime_test_cases():
@@ -1416,285 +1356,11 @@ def test_europe_london(subtests, dt, offset):
 ```
 <!-- .element class="fragment fade-in" data-fragment-index="1" -->
 
+</div>
+
 <span class="footnote">For more on subtests, see my blog post [Subtests in Python](https://blog.ganssle.io/articles/2020/04/subtests-in-python.html)</span>
 
-					</textarea>
-				</section>
-				
-				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
-					<textarea data-template>
-# Configuring `pytest`
-
-<img src="external-images/logos/pytest_logo.svg"
-     class="splash"
-     alt="The pytest logo"
-     style="max-height: 30dvh"/>
-
-- Command line flags
-- Config files
-- `conftest.py`
-
---
-
-<!-- .slide: data-visibility="hidden" -->
-
-# Command line flags: Test selection
-
-`-k <expr>`: Specify which tests will run
-
-<pre class="code-wrapper fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0"><tt class="hljs">pytest -k test_rrule
-<span class="pytest-ok">============================= test session starts ==============================</span>
-collected 2096 items / <b><u>1534 deselected</u></b> / <b><u>562 selected</u></b>
-
-tests/test_rrule.py <span class="pytest-pass">.................................................... [  9%]</span>
-<span class="pytest-pass">........................................................................ [ 22%]</span>
-<span class="pytest-pass">........................................................................ [ 34%]</span>
-<span class="pytest-pass">........................................................................ [ 47%]</span>
-<span class="pytest-pass">........................................................................ [ 60%]</span>
-<span class="pytest-pass">........................................................................ [ 73%]</span>
-<span class="pytest-pass">........................................................................ [ 86%]</span>
-<span class="pytest-pass">........................................................</span><span class="pytest-warn">x</span><span class="pytest-pass">............... [ 98%]</span>
-<span class="pytest-pass">......                                                                   [100%]</span>
-
-<span class="pytest-pass">=============== </span><span class="pytest-good">561 passed</span>, <span class="pytest-warn">1534 deselected</span>, <span class="pytest-warn">1 xfailed</span><span class="pytest-pass"> in 1.99s ================</span>
-</tt>
-</pre>
-
-<pre class="code-wrapper fragment disappearing-fragment fade-in-and-out" data-fragment-index="0"><tt class="hljs">$ pytest -v -k 'test_rrule and testSetCache'
-<span class="pytest-ok">============================= test session starts ==============================</span>
-<span class="pytest-ok">collected 2096 items / 2093 deselected / 3 selected                            </span>
-
-tests/test_rrule.py::RRuleSetTest::testSetCachePost <span class="pytest-good">PASSED               [ 33%]</span>
-tests/test_rrule.py::RRuleSetTest::testSetCachePostInternal <span class="pytest-good">PASSED       [ 66%]</span>
-tests/test_rrule.py::RRuleSetTest::testSetCachePre <span class="pytest-good">PASSED                [100%]</span>
-
-<span class="pytest-good">====================== </span><span class="pytest-pass">3 passed</span>, <span class="pytest-warn">2093 deselected</span><span class="pytest-good"> in 0.77s ======================</span></tt></pre>
-
---
-
-<!-- .slide: data-visibility: hidden -->
-
-# Command line flags: Test selection
-
-`-m <expr>`: Select by markers
-
-<pre class="code-wrapper"><tt class="hljs">$ pytest -m 'hypothesis'
-<span class="pytest-ok">============================= test session starts ==============================</span>
-<span class="pytest-ok">collected 2096 items / 2091 deselected / 5 selected                            </span>
-
-tests/property/test_isoparse_prop.py <span class="pytest-good">.                                   [ 20%]</span>
-tests/property/test_parser_prop.py <span class="pytest-good">..                                    [ 60%]</span>
-tests/property/test_tz_prop.py <span class="pytest-good">..                                        [100%]</span>
-
-<span class="pytest-good">====================== </span><span class="pytest-pass">5 passed</span>, <span class="pytest-warn">2091 deselected</span><span class="pytest-good"> in 1.61s ======================</span></tt></pre>
-<br/>
-<pre class="code-wrapper"><tt class="hljs">$ pytest -m 'not hypothesis'
-<span class="pytest-ok">============================= test session starts ==============================</span>
-<span class="pytest-ok">collected 2096 items / 5 deselected / 2091 selected                            </span>
-
-docs/exercises/solutions/mlk_day_rrule_solution.py <span class="pytest-good">.                     [  0%]</span>
-tests/test_easter.py <span class="pytest-good">................................................... [  2%]</span>
-<span class="pytest-good">........................................................................ [  5%]</span>
-tests/test_import_star.py <span class="pytest-good">.                                              [  7%]</span>
-tests/test_imports.py <span class="pytest-good">........................</span><span class="pytest-warn">sss</span><span class="pytest-good">...                     [  9%]</span>
-tests/test_internals.py <span class="pytest-good">....                                             [  9%]</span>
-tests/test_isoparser.py <span class="pytest-good">................................................ [ 11%]</span>
-<span class="pytest-good">........................................................................ [ 15%]</span>
-<span class="pytest-good">........................................................................ [ 18%]</span>
-                                                 ...
-tests/test_utils.py <span class="pytest-good">.......                                              [100%]</span>
-
-<span class="pytest-good">========== </span><span class="pytest-pass">2027 passed</span>, <span class="pytest-warn">47 skipped</span>, <span class="pytest-warn">5 deselected</span>, <span class="pytest-warn">17 xfailed</span><span class="pytest-good"> in 6.81s ==========</span></tt></pre>
-
---
-
-# Command line flags: Debugging
-
-- `-x`: Exit on first failure
-- `--maxfail`: Exit after the first `num` failures or errors
-- `--sw`/`--stepwise`: Exit on test failure, then continue from last failing test
-
-<br/><br/>
-
-- `--nf` / `--new-first`: Run tests ordered by last modified time of the file
-- `--ff` / `--failed-first`: Start with tests that failed last time
-- `--lf` / `--last-failed`: Only run tests that failed last time
-
-<br/><br/>
-
-- `--pdb`: Drop into debugger on failure
-
---
-
-<!-- .slide: data-visibility="hidden" -->
-
-# Command line flags: Display
-
-<pre class="code-wrapper"><tt class="hljs">$ pip install pygments
-...
-
-$ pytest -x --code-highlight=yes  # This flag is optional
-<span class="pytest-ok">============================= test session starts ==============================</span>
-<span class="pytest-ok">collected 29 items / 1 skipped                                                 </span>
-
-test_bad_assert.py <span class="pytest-bad">F</span>
-
-=================================== FAILURES ===================================
-<font color="#EF2929"><span class="pytest-ok">_______________________________ test_bad_assert ________________________________</span></font>
-
-    <font color="#729FCF">def</font> <font color="#4BE234">test_bad_assert</font>():
-        a = <font color="#729FCF">1</font>
->       <font color="#729FCF">assert</font> a == <font color="#729FCF">2</font>, <span class="pytest-warn">"Custom error message"</span>
-<font color="#EF2929"><span class="pytest-ok">E       AssertionError: Custom error message</span></font>
-<font color="#EF2929"><span class="pytest-ok">E       assert 1 == 2</span></font>
-
-<font color="#EF2929"><span class="pytest-ok">test_bad_assert.py</span></font>:3: AssertionError
-<span class="pytest-ok">=========================== short test summary info ============================</span>
-<span class="pytest-bad">FAILED</span> test_bad_assert.py::<span class="pytest-ok">test_bad_assert</span> - AssertionError: Custom error message
-<span class="pytest-bad">!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
-<span class="pytest-bad">=================== </span><font color="#EF2929"><span class="pytest-ok">1 failed</span></font>, <span class="pytest-warn">1 skipped</span>, <span class="pytest-warn">1 warning</span><span class="pytest-bad"> in 0.28s ====================</span>
-</tt></pre>
-
---
-
-# Command line flags: Display
-
-<!-- .slide: data-visibility: hidden -->
-
-- `-l` / `--showlocals`: Show local variables in tracebacks
-
-
-<pre class="code-wrapper"><tt class="hljs">$ pytest -k 'test_timestamp' -l
-<span class="pytest-ok">============================= test session starts ==============================</span>
-<span class="pytest-ok">collected 29 items / 28 deselected / 1 skipped / 1 selected                    </span>
-
-test_error_message.py <span class="pytest-bad">F                                                  [100%]</span>
-
-=================================== FAILURES ===================================
-<font color="#EF2929"><span class="pytest-ok">________________________________ test_timestamp ________________________________</span></font>
-
-    def test_timestamp():
-        for dt_1, dt_2 in get_datetimes():
-            ts2 = dt_2.timestamp()
-            dt_rt = dt_1 + (dt_2 - dt_1)
->           assert ts2 == dt_rt.timestamp()
-<font color="#EF2929"><span class="pytest-ok">E           AssertionError: assert 1715822040.0 == 1715818440.0</span></font>
-<font color="#EF2929"><span class="pytest-ok">E            +  where 1715818440.0 = <built-in method timestamp of datetime.datetime object at 0x7885c6cbb2d0>()</span></font>
-<font color="#EF2929"><span class="pytest-ok">E            +    where <built-in method timestamp of datetime.datetime object at 0x7885c6cbb2d0> = datetime.datetime(2024, 5, 15, 20, 14,
-                               tzinfo=zoneinfo.ZoneInfo(key='America/New_York')).timestamp</span></font>
-
-dt_1       = datetime.datetime(1970, 1, 1, 0, 0, tzinfo=zoneinfo.ZoneInfo(key='America/New_York'))
-dt_2       = datetime.datetime(2024, 5, 16, 1, 14, tzinfo=zoneinfo.ZoneInfo(key='UTC'))
-dt_rt      = datetime.datetime(2024, 5, 15, 20, 14, tzinfo=zoneinfo.ZoneInfo(key='America/New_York'))
-ts2        = 1715822040.0
-
-<font color="#EF2929"><span class="pytest-ok">test_error_message.py</span></font>:33: AssertionError
-<span class="pytest-bad">============ </span><font color="#EF2929"><span class="pytest-ok">1 failed</span></font>, <span class="pytest-warn">1 skipped</span>, <span class="pytest-warn">28 deselected</span>, <span class="pytest-warn">1 warning</span><span class="pytest-bad"> in 0.18s ============</span>
-</tt></pre>
-
---
-
-# Configuration files:
-
-
-<div class="side-by-side">
-<div class="left" style="width:40dvw">
-
-<b><tt>pytest.ini</tt></b>
-
-```ini
-[pytest]
-xfail_strict=True
-minversion = 6.0
-addopts = -ra -q
-testpaths =
-    tests
-    integration
-```
 </div>
-<div class="right" style="width:40dvw">
-
-<b><tt>pyproject.toml</tt></b>
-
-```toml
-[tool.pytest.ini_options]
-minversion = "6.0"
-xfail_strict=true
-addopts = "-ra -q"
-testpaths = [
-    "tests",
-    "integration",
-]
-```
-</div>
-</div>
-
-<br/>
-
-<span style="font-size: 0.8em">
-
-- Can also go in `[pytest]` section of `tox.ini` or `[tool:pytest]` section of `setup.cfg`, but `pyproject.toml` or `pytest.ini` are preferred.
-
-</span>
-
---
-
-## Set `xfail` to strict-by-default
-
-```toml
-[tool.pytest.ini_options]
-xfail_strict=true
-```
-
-<br/><br/>
-
-## Treat errors as warnings
-
-```toml
-[tool.pytest.ini_options]
-filterwarnings = [
-    "error",
-    "error::DeprecationWarning",
-    "error:PendingDeprecationWarning",
-    "ignore::ErroneousWarning:erroneousmodule",
-]
-```
-
-<br/><br/>
-
-## Specify test patterns
-
-```toml
-[tool.pytest.ini_options]
-python_files = [
-    "test_*.py",
-    "*_example.py",
-]
-```
-
---
-
-# `conftest.py`
-
-- Can put fixtures in this to be shared across multiple directories
-- One can exist in any test directory, each scoped to all directories below it in the hierarchy
-- Location for all hooks for plugins (to modify test execution and collection)
-
-<br/><br/>
-
-
-```python
-# Configure pytest to ignore xfailing tests
-def pytest_collection_modifyitems(items):
-    for item in items:
-        marker_getter = getattr(item, 'get_closest_marker', None)
-        marker = marker_getter('xfail')
-
-        # Need to query the args because conditional xfail tests still have
-        # the xfail mark even if they are not expected to fail
-        if marker and (not marker.args or marker.args[0]):
-            item.add_marker(pytest.mark.no_cover)
-```
 
 					</textarea>
 				</section>
@@ -1703,52 +1369,364 @@ def pytest_collection_modifyitems(items):
 					<textarea data-template>
 # Plugins
 
+<div class="centered-container">
+
+<div class="left-container" style="width: 100%">
+
 - `pytest-randomly`: Run tests in a random order
 - `pytest-xdist`: Run tests in parallel
 - `pytest-subtest`: Adds the `subtest` fixture
 - `pytest-cov`: Orchestrates coverage with `pytest`
-- `pytest-mutagen`: Runs mutation testing
 
-<br/><br/>
+</div>
+
+<div></div>
+
+<div class="left-container" style="width: 100%">
+
+- `pytest-memray`: Memory profiling
+- `pytest-leaks`: Memory leak detection
+- `pytest-benchmark` / `pytest-speed`: Speed benchmarks
+
+</div>
+
+<pre class="code-wrapper"><tt class="hljs">$ pytest --memray tests/test_easter.py
+<span class="pytest-ok">============================= test session starts ==============================</span>
+Using --randomly-seed=609276657
+<span class="pytest-ok">collected 163 items                                                            </span>
+
+tests/test_easter.py <span class="pytest-good">................................................... [ 31%]</span>
+<span class="pytest-good">........................................................................ [ 75%]</span>
+<span class="pytest-good">........................................                                 [100%]</span>
+
+
+================================ MEMRAY REPORT =================================
+Allocation results for tests/test_easter.py::test_easter_orthodox[easter_date9] at the high watermark
+
+     📦 Total memory allocated: 1.4KiB
+     📏 Total allocations: 2
+     📊 Histogram of allocation sizes: |█ |
+     🥇 Biggest allocating functions:
+        - wrapper:pytest_memray/plugin.py:192 -> 844.0B
+        - test_easter_orthodox:tests/test_easter.py:83 -> 614.0B
+                       ...
+</tt></pre>
+
+</div>
+
+--
+
+# Plugins
+
+
+<div class="centered-container">
+
+<div class="left-container" style="width: 100%">
 
 - `pygments`: Code highlighting  in tracebacks
 - `pytest-hammertime`: Turns `.` into '🔨'
 - `pytest-pumpkin-spice`: Adds "pumpkin spice" flavor to your output
 - `pytest-sugar`: Changes look and feel of `pytest`
 
-<br/><br/>
-- `pytest-memray`: Memory profiling
-- `pytest-leaks`: Memory leak detection
-- `pytest-benchmark` / `pytest-speed`: Speed benchmarks
+</div>
+
+<pre class="code-wrapper fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0"><tt class="hljs">$ pytest test_bad_assert.py
+<span class="pytest-ok">============================= test session starts ==============================</span>
+<span class="pytest-ok">collected 1 item                                                               </span>
+
+test_bad_assert.py <span class="pytest-bad">F                                                     [100%]</span>
+
+=================================== FAILURES ===================================
+<span class="pytest-error">_______________________________ test_bad_assert ________________________________</span>
+
+    <font color="#729FCF">def</font> <font color="#4BE234">test_bad_assert</font>():
+        a = <font color="#729FCF">1</font>
+>       <font color="#729FCF">assert</font> a == <font color="#729FCF">2</font>, <span class="pytest-warn">"Custom error message"</span>
+<span class="pytest-error">E       AssertionError: Custom error message</span>
+<span class="pytest-error">E       assert 1 == 2</span>
+
+<span class="pytest-error">test_bad_assert.py</span>:3: AssertionError
+<span class="pytest-ok">=========================== short test summary info ============================</span>
+<span class="pytest-bad">FAILED</span> test_bad_assert.py::<span class="pytest-ok">test_bad_assert</span> - AssertionError: Custom error message
+</tt></pre>
+
+<pre class="code-wrapper fragment disappearing-fragment nospace-fragment fade-in-and-out" data-fragment-index="0"><tt class="hljs">$ pytest --pumpkin-spice pytest
+<span class="pytest-ok">================================================ test session starts ================================================</span>
+<span class="pytest-ok">collected 33 items / 1 skipped                                                                                      </span>
+
+pytest/test_bad_assert.py <span class="pytest-bad">❄️                                                                                   [  3%]</span>
+pytest/test_bad_asserts_tuple.py <span class="pytest-good">🎃 </span><span class="pytest-bad">                                                                           [  6%]</span>
+pytest/test_classes.py <span class="pytest-bad">🥧                                                                                      [  9%]</span>
+pytest/test_confusing_error_message.py <span class="pytest-bad">🥧                                                                      [ 12%]</span>
+pytest/test_error_message.py <span class="pytest-bad">❄️                                                                                [ 15%]</span>
+pytest/test_fixture_parameters.py <span class="pytest-good">🎃 🎃 🎃 </span><span class="pytest-bad">                                                                     [ 24%]</span>
+pytest/test_floats.py <span class="pytest-bad">❄️ </span><span class="pytest-good">🎃 </span><span class="pytest-bad">                                                                                   [ 30%]</span>
+pytest/test_marks.py <span class="pytest-good">🎃 </span><span class="pytest-bad">❄️                                                                                     [ 36%]</span>
+pytest/test_parametrize_ids.py <span class="pytest-good">🎃 🎃 🎃 🎃 </span><span class="pytest-bad">                                                                     [ 60%]</span>
+pytest/test_special_assert.py <span class="pytest-bad">❄️                                                                               [ 63%]</span>
+pytest/test_stacked_parameterization.py <span class="pytest-good">🎃 🎃 🎃 🎃 🎃 🎃 </span><span class="pytest-bad">❄️ ❄️ ❄️                                                [ 90%]</span>
+pytest/test_xfail.py <span class="pytest-good">🎃 </span><span class="pytest-warn">🍂 </span><span class="pytest-bad">❄️                                                                                   [100%]</span>
+====================================================== ERRORS =======================================================
+                                                  ...
+<span class="pytest-bad">FAILED ❄️ </span> pytest/test_xfail.py::<span class="pytest-ok">test_xpass</span>
+<span class="pytest-bad">ERROR 🥧 </span> pytest/test_classes.py::<span class="pytest-ok">TestClass::test_method</span> - NameError: name 'generate_expensive_global' is not defined
+</tt></pre>
+<pre class="fragment nospace-fragment fade-in" data-fragment-index="1"
+    style="background-color:#2E3436; color: #fff; padding: 0.75em;"
+>
+$ pytest
+<b>Test session starts (platform: linux, Python 3.11.8, pytest 8.2.0, pytest-sugar 1.0.0)</b>
+plugins: cov-5.0.0, pumpkin-spice-0.1.0, subtests-0.12.1, sugar-1.0.0, hypothesis-6.100.2
+<b>collected 2096 items / 1278 deselected / 818 selected                          </b>
+
+ <font color="#06989A">tests/</font>test_easter.py <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font>  <font color="#10BA13">5% </font><span style="background-color:#2E3436"><font color="#10BA13">▌         </font></span>
+                      <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">11% </font><span style="background-color:#2E3436"><font color="#10BA13">█▏        </font></span>
+                      <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">16% </font><span style="background-color:#2E3436"><font color="#10BA13">█▋        </font></span>
+                      <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font>          <font color="#10BA13">20% </font><span style="background-color:#2E3436"><font color="#10BA13">██        </font></span>
+ <font color="#06989A">tests/</font>test_isoparser.py <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">25% </font><span style="background-color:#2E3436"><font color="#10BA13">██▌       </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">30% </font><span style="background-color:#2E3436"><font color="#10BA13">███       </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">35% </font><span style="background-color:#2E3436"><font color="#10BA13">███▌      </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">39% </font><span style="background-color:#2E3436"><font color="#10BA13">███▉      </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">49% </font><span style="background-color:#2E3436"><font color="#10BA13">████▉     </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">54% </font><span style="background-color:#2E3436"><font color="#10BA13">█████▌    </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓x✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">64% </font><span style="background-color:#2E3436"><font color="#10BA13">██████▌   </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">69% </font><span style="background-color:#2E3436"><font color="#10BA13">██████▉   </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">74% </font><span style="background-color:#2E3436"><font color="#10BA13">███████▍  </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">83% </font><span style="background-color:#2E3436"><font color="#10BA13">████████▍ </font></span>
+                         <font color="#10BA13">✓✓✓✓✓✓✓✓</font>                                 <font color="#10BA13">89% </font><span style="background-color:#2E3436"><font color="#10BA13">████████▉ </font></span>
+ <font color="#06989A">tests/</font>test_relativedelta.py <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">94% </font><span style="background-color:#2E3436"><font color="#10BA13">█████████▍</font></span>
+                             <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font> <font color="#10BA13">98% </font><span style="background-color:#2E3436"><font color="#10BA13">█████████▊</font></span>
+                             <font color="#10BA13">✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓</font>                     <font color="#10BA13">100% </font><span style="background-color:#2E3436"><font color="#10BA13">██████████</font></span>
+
+Results (1.32s):
+<font color="#10BA13">     817 passed</font>
+<font color="#10BA13">       1 xfailed</font>
+<font color="#C4A000">    1278 deselected</font>
+</pre>
 
 					</textarea>
 				</section>
 				
 				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-notes="^Note:">
 					<textarea data-template>
-<!-- <div class="splash fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0"> -->
+# Recap
 
-<div class ="splash">
+<div class="centered-container">
 
-Why choose `pytest` over `unittest`?
+<div class="left-container" style="width: 100%">
+
+### `pytest` can be adopted incrementally
+
+- Use it just as a test runner
+- Can mix-and match `pytest` and `unittest` style code
+
 </div>
 
-<!--
+<div></div>
 
-<img src="images/attacking_straw_man.png"
-     alt="A knight in armor attacking a scarecrow."
-     class="splash fragment fade-in"
-     data-fragment-index="0"
-     />
+<div class="left-container" style="width: 100%">
 
--->
+### `pytest` is the standard way to do testing
+
+- Broad ecosystem
+- Strong documentation
+- Under active development
+
+</div>
+
+<div></div>
+
+<div class="left-container" style="width: 100%">
+
+### `pytest` is extremely feature rich
+
+- Fixtures
+- Parameterization
+- Much more! (`markers`, custom plugins, etc)
+
+</div>
+</div>
 
 --
 
-- `unittest` is in the standard library, but `pytest` is the standard way to do testing in Python
-- `pytest` is very compatible with `unittest`, so incremental migrations are easy
-- `pytest` is extremely feature-rich, and under active development
-- Fixture UI and scoping is weird, but fixtures are great
+# More from me
+
+<div class="centered-container">
+<div class="left-container">
+<p><b>Website:</b> <a href="https://ganssle.io">https://ganssle.io</a></p>
+<p><b>Blog:</b> <a href="https://blog.ganssle.io">https://blog.ganssle.io</a></p>
+<p><b>Mastodon:</b> <a href="https://qoto.org/@pganssle">@pganssle@qoto.org</a></p>
+</div>
+
+- Subtests in Python (https://blog.ganssle.io/articles/2020/04/subtests-in-python.html)
+    - [Python Test Episode 111](https://podcast.pythontest.com/episodes/111-subtests-in-python-with-unittest-and-pytest-paul-ganssle)
+
+- PyCon 2022: `xfail` and `skip`: What to do with tests you know will fail (https://ganssle.io/talks)
+    - [Python Test Episode 171](https://podcast.pythontest.com/episodes/171-how-and-why-i-use-pytests-xfail-paul-ganssle)
+    - [How and why I use `pytest`'s `xfail`](https://blog.ganssle.io/articles/2021/11/pytest-xfail.html)
+
+</div>
+
+
+
+--
+
+<!-- .slide: data-visibility="hidden" -->
+
+# Fixture UI Issues
+
+<div class="centered-container big-code">
+
+<pre class="code-wrapper"><tt class="hljs">$ pytest test_confusing_error_message.py 
+<span class="pytest-ok">============================= test session starts ==============================</span>
+<span class="pytest-ok">collected 1 item                                                               </span>
+
+test_confusing_error_message.py <span class="pytest-bad">E                                        [100%]</span>
+
+==================================== ERRORS ====================================
+<font color="#EF2929"><span class="pytest-ok">______________________ ERROR at setup of test_refactored _______________________</span></font>
+file test_confusing_error_message.py, line 1
+  def test_refactored(self):
+<span class="pytest-bad">E       fixture 'self' not found</span>
+<span class="pytest-bad">>       available fixtures: cache, capfd, capfdbinary,
+                          caplog, capsys, capsysbinary, cov, doctest_namespace,
+                          monkeypatch, no_cover, pytestconfig, record_property,
+                          record_testsuite_property, record_xml_attribute,
+                          recwarn, subtests, tmp_path, tmp_path_factory,
+                          tmpdir, tmpdir_factory</span>
+<span class="pytest-bad">>       use 'pytest --fixtures [testpath]' for help on them.</span>
+
+test_confusing_error_message.py:1
+<span class="pytest-ok">=========================== short test summary info ============================</span>
+<span class="pytest-bad">ERROR</span> test_confusing_error_message.py::<span class="pytest-ok">test_refactored</span>
+<span class="pytest-bad">=============================== </span><font color="#EF2929"><span class="pytest-ok">1 error</span></font><span class="pytest-bad"> in 0.39s ===============================</span>
+</tt></pre>
+
+</div>
+
+--
+
+<!-- .slide: data-visibility="hidden" -->
+
+# Fixture discovery
+
+<div class="big-code">
+
+```python
+def test_something(tmp_path: pathlib.Path) -> None:
+    tmp_path.write_text(my_module.generate_text())
+    assert "SOME_STRING" in my_module.read_path(tmp_path)
+```
+</div>
+
+<style>
+
+div.pytest-figure-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+div.pytest-figure-container figure {
+    max-width: 40dvw;
+}
+
+div.pytest-figure-container img {
+    max-width: 45dvw;
+    max-height: 45dvh;
+    height: auto;
+}
+
+div.pytest-figure-container figure figcaption {
+    font-size: 0.7em;
+    font-style: italic;
+}
+</style>
+
+<div class="pytest-figure-container">
+<figure class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0">
+<img src="external-images/fixture_availability.svg"
+     alt="A diagram showing the scope that fixtures are available in">
+<figcaption>
+
+Scope of fixture availability for fixtures defined in `conftest.py` files at different levels in the directory structure.
+</figcaption>
+</figure>
+
+<figure class="fragment disappearing-fragment nospace-fragment fade-out" data-fragment-index="0">
+<img src="external-images/fixture_availability_plugins.svg"
+     alt="A diagram showing the scope that fixtures are available in with plugins"
+     style="height: auto; max-width: 40dvw">
+<figcaption>
+
+Fixture availability with plugins installed
+</figcaption>
+</figure>
+
+<img src="external-images/memes/pepe_silvia_upscaled.png"
+     style="height: 50dvh; width: auto; max-height: 60dvh;"
+     alt="Pepe Silvia meme: Charlie from It's Always Sunny in Philadelphia stands in front of a corkboard covered in deranged writing; he has a crazed look in his eye"
+     class="fragment fade-in nospace-fragment" data-fragment-index="0"
+     >
+
+</div>
+
+--
+
+<!-- .slide: data-visibility="hidden" -->
+
+# Proposed improvements
+
+<div class="centered-container big-code">
+
+```python
+# Explicitly import your fixtures
+from pytest.fixtures import tmp_path
+from my_plugin import setup_globals
+
+# Explicitly apply fixtures you want
+@pytest.apply(tmp_path)
+def test_something(tmp_path: pathlib.Path) -> None:
+    tmp_path.write_text(my_module.generate_text())
+    assert "SOME_STRING" in my_module.read_path(tmp_path)
+
+# Example of a "function-scoped" autouse fixture
+@pytest.use(setup_globals)
+def test_something_with_globals():
+    assert my_module.INITIALIZED_GLOBAL == "initialized"
+```
+<!-- .element class="fragment nospace-fragment disappearing-fragment fade-out" data-fragment-index="0" -->
+
+
+```python
+@pytest.fixture
+def random_user(username_base: str | None = None) -> str:
+    user = User(username_base)
+    user.create_user()
+    yield user.username
+    user.delete_user()
+
+# Bind as part of the wrapper decorator
+@pytest.apply(random_user, username_base="josé")
+def test_usernames_with_accents(random_user: str) -> None:
+    assert get_user(random_user).base == "josé"
+
+# Allow parameterization directly in apply
+@pytest.apply(random_user, [
+    {"username_base": "josé"},
+    ("minecraft_dude",),
+    pytest.param(username_base="calvin"),
+])
+def test_username_base(random_user: str) -> None:
+    assert get_user(random_user).base is not None
+```
+<!-- .element class="fragment fade-in nospace-fragment" data-fragment-index="0" -->
+
+<span class="footnote">
+
+A reform along these lines was also [proposed by Abid Mujtaba](https://github.com/abid-mujtaba/testing-fixtures) in 2023
+</span>
 
 					</textarea>
 				</section>
