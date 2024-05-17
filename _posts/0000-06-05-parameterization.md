@@ -234,6 +234,8 @@ def test_multiply(x, y):
 
 --
 
+<!-- .slide: data-visibility="hidden" -->
+
 # Subtests
 
 <div class="centered-container">
@@ -286,6 +288,8 @@ FAILED (failures=1, errors=1)
 
 
 --
+
+<!-- .slide: data-visibility="hidden" -->
 
 # Subtests
 
