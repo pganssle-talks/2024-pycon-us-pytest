@@ -1,5 +1,5 @@
 <div class="splash">
-<p><tt>pytest</tt> is way too magical</p>
+<p>✨ <tt>pytest</tt> is way too  magical ✨</p>
 <p class="fragment fade-in">... but in practice this doesn't matter</p>
 </div>
 
