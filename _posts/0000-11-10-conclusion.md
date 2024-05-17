@@ -38,11 +38,17 @@
 
 --
 
-<div class="splash">
-Thank you!
-</div>
+# More resources
+
+
+- PyCon 2022: `xfail` and `skip`: What to do with tests you know will fail (https://ganssle.io/talks/#xfail-and-skip)
+
+- Subtests in Python (https://blog.ganssle.io/...)
+
 
 --
+
+<!-- .slide: data-visibility="hidden" -->
 
 # Fixture UI Issues
 
@@ -76,6 +82,8 @@ test_confusing_error_message.py:1
 </div>
 
 --
+
+<!-- .slide: data-visibility="hidden" -->
 
 # Fixture discovery
 
@@ -142,6 +150,8 @@ Fixture availability with plugins installed
 </div>
 
 --
+
+<!-- .slide: data-visibility="hidden" -->
 
 # Proposed improvements
 
