@@ -38,12 +38,24 @@
 
 --
 
-# More resources
+# More from me
 
+<div class="centered-container">
+<div class="left-container">
+<p><b>Website:</b> <a href="https://ganssle.io">https://ganssle.io</a></p>
+<p><b>Blog:</b> <a href="https://blog.ganssle.io">https://blog.ganssle.io</a></p>
+<p><b>Mastodon:</b> <a href="https://qoto.org/@pganssle">@pganssle@qoto.org</a></p>
+</div>
 
-- PyCon 2022: `xfail` and `skip`: What to do with tests you know will fail (https://ganssle.io/talks/#xfail-and-skip)
+- Subtests in Python (https://blog.ganssle.io/articles/2020/04/subtests-in-python.html)
+    - [Python Test Episode 111](https://podcast.pythontest.com/episodes/111-subtests-in-python-with-unittest-and-pytest-paul-ganssle)
 
-- Subtests in Python (https://blog.ganssle.io/...)
+- PyCon 2022: `xfail` and `skip`: What to do with tests you know will fail (https://ganssle.io/talks)
+    - [Python Test Episode 171](https://podcast.pythontest.com/episodes/171-how-and-why-i-use-pytests-xfail-paul-ganssle)
+    - [How and why I use `pytest`'s `xfail`](https://blog.ganssle.io/articles/2021/11/pytest-xfail.html)
+
+</div>
+
 
 
 --
