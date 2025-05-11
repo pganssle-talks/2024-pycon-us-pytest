@@ -331,6 +331,11 @@ img.screenshot {
     margin: 1em;
 }
 
+img.mobile-screenshot {
+    max-height: 80dvh;
+}
+
+
 div.gallery {
     display: flex;
     flex-direction: row;
