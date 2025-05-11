@@ -316,6 +316,7 @@ body {
   box-shadow: none;
 }
 
+img.splash,
 img#splash {
     border: 2px solid;
     border-color: #444;
@@ -324,11 +325,42 @@ img#splash {
     max-height: 850px;
 }
 
-img#ghscreenshot {
+img.screenshot {
     border: 2px solid;
     border-color: #909090;
-
+    margin: 1em;
 }
+
+div.gallery {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+div.gallery > div.gallery-item > img.screenshot {
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-right: 0.5em;
+    max-height: 95%;
+}
+
+div.gallery.two-wide > div.gallery-item {
+    width: calc(50% - 1.1em);
+}
+
+div.gallery.three-wide > img.screenshot {
+    width: calc(33% - 1.1em);
+}
+
+div.gallery.four-wide > img.screenshot {
+    width: calc(33% - 1.1em);
+}
+
+div.gallery.two-high > div.gallery-item {
+    max-height: calc(40dvh - 1.1em);
+}
+
 
 /* border: 4px solid #000;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); } */
